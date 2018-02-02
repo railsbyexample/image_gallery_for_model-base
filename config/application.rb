@@ -10,7 +10,6 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
-# require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -27,5 +26,8 @@ module Rentview
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Configure mailer for Devise
+    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   end
 end
