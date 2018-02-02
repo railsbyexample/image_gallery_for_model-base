@@ -10,6 +10,7 @@ gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 
 # Backend functionality
+# Authentication
 gem 'devise'
 
 # Styling
