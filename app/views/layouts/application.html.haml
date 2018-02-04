@@ -9,7 +9,8 @@
   %body
     %nav.navbar.navbar-light.bg-light
       .container
-        = link_to 'Rentview', root_path, class: 'navbar-brand'
+        .h5.mb-0
+          = link_to 'Rentview', root_path, class: 'navbar-brand text-muted'
         = link_to 'Log in / Sign up', new_user_session_path, class: 'btn btn-outline-primary ml-auto'
     .container
       %p.notice= notice
