@@ -1,11 +1,17 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{content: 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}/
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}/
     %title Rentview
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
   %body
-    %p.notice= notice
-    %p.alert= alert
-    = yield
+    %nav.navbar.navbar-light.bg-light
+      .container
+        = link_to 'Rentview', root_path, class: 'navbar-brand'
+        = link_to 'Log in / Sign up', new_user_session_path, class: 'btn btn-outline-primary ml-auto'
+    .container
+      %p.notice= notice
+      %p.alert= alert
+      = yield
