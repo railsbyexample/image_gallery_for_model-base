@@ -29,5 +29,8 @@ module Rentview
 
     # Configure mailer for Devise
     config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+    # Configure mailer previews
+    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
   end
 end
