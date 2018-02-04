@@ -1,5 +1,11 @@
+@include media-breakpoint-up(sm) {
+  .w-sm-50 {
+    width: 50% !important;
+  }
+}
+
 @include media-breakpoint-up(lg) {
   .w-lg-30 {
-    width: 30%;
+    width: 30% !important;
   }
 }
