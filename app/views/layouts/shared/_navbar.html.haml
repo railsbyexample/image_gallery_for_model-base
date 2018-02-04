@@ -1,0 +1,9 @@
+%nav.navbar.navbar-light.bg-light
+  .container
+    .h5.mb-0
+      = link_to 'Rentview', root_path, class: 'navbar-brand text-muted'
+
+    - unless user_signed_in?
+      = link_to 'Log in / Sign up', new_user_session_path, class: 'btn btn-outline-primary ml-auto'
+    - else
+      = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary ml-auto'

@@ -13,6 +13,10 @@ gem 'puma', '~> 3.7'
 # Authentication
 gem 'devise'
 
+# Frontend functionality
+# Use jquery for bootstrap components
+gem 'jquery-rails'
+
 # Styling
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

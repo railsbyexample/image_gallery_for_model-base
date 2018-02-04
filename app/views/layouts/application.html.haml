@@ -3,16 +3,16 @@
   %head
     %meta{content: 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}/
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}/
+
     %title Rentview
+
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+
   %body
-    %nav.navbar.navbar-light.bg-light
-      .container
-        .h5.mb-0
-          = link_to 'Rentview', root_path, class: 'navbar-brand text-muted'
-        = link_to 'Log in / Sign up', new_user_session_path, class: 'btn btn-outline-primary ml-auto'
+    = render partial: 'layouts/shared/navbar'
+
     .container
-      %p.notice= notice
-      %p.alert= alert
+      = render partial: 'layouts/shared/flash'
       = yield
