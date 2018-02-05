@@ -25,13 +25,17 @@ gem 'bootstrap', '~> 4.0.0'
 
 # Views
 # Use haml for views
-gem "haml-rails", "~> 1.0"
+gem 'haml-rails', '~> 1.0'
 # Use jbuilder for json responses
 gem 'jbuilder', '~> 2.5'
 # Use Turbolinks for improved navigation
 gem 'turbolinks', '~> 5'
 # Use webpack to bundle javascript
 gem 'webpacker', '~> 3.0'
+
+# Mailing
+# Use premailer to style emails
+gem 'premailer-rails'
 
 group :development, :test do
   # Debugging

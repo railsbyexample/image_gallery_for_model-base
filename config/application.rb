@@ -32,5 +32,10 @@ module Rentview
 
     # Configure mailer previews
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+
+    config.to_prepare do
+      # Configure Devise mailer layout
+      Devise::Mailer.layout 'mailer' # email.haml or email.erb
+    end
   end
 end
