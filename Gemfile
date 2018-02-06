@@ -4,10 +4,12 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 # Rails
 gem 'rails', '~> 5.1.4'
-# Use postgresql as the database for Active Record
+# postgresql Database
 gem 'pg', '~> 0.18'
-# Use Puma as the app server
+# Puma app server
 gem 'puma', '~> 3.7'
+# Sidekiq workers (uses Redis)
+gem 'sidekiq'
 
 # Backend functionality
 # Authentication
