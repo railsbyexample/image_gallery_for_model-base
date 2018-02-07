@@ -46,6 +46,8 @@ gem 'premailer-rails'
 group :development, :test do
   # Debugging
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Intercepting mail
+  gem 'letter_opener'
 end
 
 group :development do
