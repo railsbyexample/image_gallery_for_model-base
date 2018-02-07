@@ -11,6 +11,10 @@ gem 'puma', '~> 3.7'
 # Sidekiq workers (uses Redis)
 gem 'sidekiq'
 
+# Deployment
+# Use Figaro to handle app secrets
+gem 'figaro'
+
 # Backend functionality
 # Authentication
 gem 'devise'
