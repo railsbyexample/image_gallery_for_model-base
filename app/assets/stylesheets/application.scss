@@ -1,0 +1,10 @@
+/*
+ *= require_self
+ */
+@import 'bootstrap';
+
+@import 'utilities/sizing';
+
+body {
+  background-color: $light;
+}

@@ -1,0 +1,11 @@
+%nav.navbar.navbar-light.bg-light.mb-3.px-0
+  .container
+    .h5.mb-0
+      = link_to 'Renthru', root_path, class: 'navbar-brand text-muted'
+
+    - unless user_signed_in?
+      = link_to 'Log in / Sign up', new_user_session_path, class: 'btn btn-outline-primary ml-auto'
+    - else
+      .ml-auto
+        = link_to 'Prefs', edit_user_registration_path, class: 'btn btn-outline-primary mr-1'
+        = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary'

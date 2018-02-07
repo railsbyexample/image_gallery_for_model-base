@@ -15,7 +15,7 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Rentview
+module Renthru
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
@@ -29,5 +29,13 @@ module Rentview
 
     # Configure mailer for Devise
     config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+    # Configure mailer previews
+    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+
+    config.to_prepare do
+      # Configure Devise mailer layout
+      Devise::Mailer.layout 'mailer' # email.haml or email.erb
+    end
   end
 end

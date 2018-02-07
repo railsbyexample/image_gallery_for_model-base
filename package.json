@@ -1,5 +1,5 @@
 {
-  "name": "rentview",
+  "name": "renthru",
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.2.1"

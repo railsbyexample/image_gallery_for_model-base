@@ -4,14 +4,24 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 # Rails
 gem 'rails', '~> 5.1.4'
-# Use postgresql as the database for Active Record
+# postgresql Database
 gem 'pg', '~> 0.18'
-# Use Puma as the app server
+# Puma app server
 gem 'puma', '~> 3.7'
+# Sidekiq workers (uses Redis)
+gem 'sidekiq'
+
+# Deployment
+# Use Figaro to handle app secrets
+gem 'figaro'
 
 # Backend functionality
 # Authentication
 gem 'devise'
+
+# Frontend functionality
+# Use jquery for bootstrap components
+gem 'jquery-rails'
 
 # Styling
 # Use SCSS for stylesheets
@@ -21,7 +31,7 @@ gem 'bootstrap', '~> 4.0.0'
 
 # Views
 # Use haml for views
-gem "haml-rails", "~> 1.0"
+gem 'haml-rails', '~> 1.0'
 # Use jbuilder for json responses
 gem 'jbuilder', '~> 2.5'
 # Use Turbolinks for improved navigation
@@ -29,9 +39,15 @@ gem 'turbolinks', '~> 5'
 # Use webpack to bundle javascript
 gem 'webpacker', '~> 3.0'
 
+# Mailing
+# Use premailer to style emails
+gem 'premailer-rails'
+
 group :development, :test do
   # Debugging
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Intercepting mail
+  gem 'letter_opener'
 end
 
 group :development do
