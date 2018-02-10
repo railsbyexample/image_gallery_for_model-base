@@ -18,6 +18,8 @@ gem 'figaro'
 # Backend functionality
 # Authentication
 gem 'devise'
+# Money attributes in models
+gem 'money-rails', '~>1'
 
 # Frontend functionality
 # Use jquery for bootstrap components
@@ -48,14 +50,6 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Intercepting mail
   gem 'letter_opener'
-end
-
-group :development do
-  # Speed up development
-  gem 'spring'
-
-  # Debugging
-  gem 'web-console', '>= 3.3.0'
 
   # Unit testing
   # Use RSpec for testing
@@ -68,4 +62,12 @@ group :development do
   gem 'factory_bot_rails'
   # Use Faker to generate test and development data
   gem 'faker'
+end
+
+group :development do
+  # Speed up development
+  gem 'spring'
+
+  # Debugging
+  gem 'web-console', '>= 3.3.0'
 end
