@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20180210030130) do
   create_table "properties", force: :cascade do |t|
     t.string "title"
     t.integer "number_of_rooms"
-    t.float "number_of_bathrooms"
+    t.string "number_of_bathrooms"
     t.float "size_in_square_meters"
     t.text "description"
     t.datetime "created_at", null: false

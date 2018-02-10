@@ -5,7 +5,7 @@ RSpec.describe 'properties/new', type: :view do
     @property = assign(:property, build(:property))
   end
 
-  it 'renders new property form', :focus do
+  it 'renders new property form' do
     render
 
     assert_select 'form[action=?][method=?]', properties_path, 'post' do
