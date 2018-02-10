@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @property.title
+%p
+  %b Price per month:
+  = @property.price_per_month
+%p
+  %b Number of rooms:
+  = @property.number_of_rooms
+%p
+  %b Number of bathrooms:
+  = @property.number_of_bathrooms
+%p
+  %b Size in square meters:
+  = @property.size_in_square_meters
+%p
+  %b Description:
+  = @property.description
+
+= link_to 'Edit', edit_property_path(@property)
+\|
+= link_to 'Back', properties_path

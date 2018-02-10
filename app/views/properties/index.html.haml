@@ -1,0 +1,31 @@
+%h1 Listing properties
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Price per month
+      %th Number of rooms
+      %th Number of bathrooms
+      %th Size in square meters
+      %th Description
+      %th
+      %th
+      %th
+
+  %tbody
+    - @properties.each do |property|
+      %tr
+        %td= property.title
+        %td= property.price_per_month
+        %td= property.number_of_rooms
+        %td= property.number_of_bathrooms
+        %td= property.size_in_square_meters
+        %td= property.description
+        %td= link_to 'Show', property
+        %td= link_to 'Edit', edit_property_path(property)
+        %td= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Property', new_property_path

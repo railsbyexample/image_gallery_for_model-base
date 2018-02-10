@@ -1,0 +1,1 @@
+rails g scaffold property title price_per_month:monetize number_of_rooms:integer number_of_bathrooms:float size_in_square_meters:float description:text --no-helper --no-stylesheets --no-assets --no-scaffold-stylesheet --no-javascripts
