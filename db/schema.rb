@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210030130) do
+ActiveRecord::Schema.define(version: 20180210215859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "geo_locations", force: :cascade do |t|
+    t.string "label"
+    t.string "place_id"
+    t.float "latitude"
+    t.float "longitude"
+    t.json "address_components"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["latitude", "longitude"], name: "index_geo_locations_on_latitude_and_longitude"
+  end
 
   create_table "properties", force: :cascade do |t|
     t.string "title"
