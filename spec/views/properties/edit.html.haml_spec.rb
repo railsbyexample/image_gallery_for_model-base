@@ -10,6 +10,7 @@ RSpec.describe 'properties/edit', type: :view do
 
     assert_select 'form[action=?][method=?]', property_path(@property), 'post' do
       assert_select 'input[name=?]', 'property[title]'
+      assert_select 'input[name=?]', 'property[price_per_month]'
       assert_select 'input[name=?]', 'property[number_of_rooms]'
       assert_select 'input[name=?]', 'property[number_of_bathrooms]'
       assert_select 'input[name=?]', 'property[size_in_square_meters]'
