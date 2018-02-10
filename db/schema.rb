@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20180210030130) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "price_per_month_cents"
+    t.string "price_per_month_currency", default: "USD", null: false
+    t.index ["title"], name: "index_properties_on_title"
   end
 
   create_table "users", force: :cascade do |t|

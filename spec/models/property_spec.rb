@@ -33,5 +33,17 @@ RSpec.describe Property, type: :model do
         expect(property).to be_invalid
       end
     end
+
+    describe 'price_per_month' do
+      it 'is valid with a numeric usd amount' do
+        property = build :property, price_per_month: '100'
+        expect(property).to be_valid
+      end
+
+      it 'is invalid with a currency other than usd' do
+        property = build :property, price_per_month: '100 eur'
+        expect(property).to be_invalid
+      end
+    end
   end
 end
