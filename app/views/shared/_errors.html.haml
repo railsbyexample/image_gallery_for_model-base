@@ -1,5 +1,5 @@
-- unless resource.errors.blank?
-  .alert.alert-danger.mb-3
+- if resource.errors.any?
+  .alert.alert-danger
     %ul.mb-0
       - resource.errors.full_messages.each do |message|
         %li= message
