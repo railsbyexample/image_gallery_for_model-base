@@ -6,23 +6,20 @@
         - @property.errors.full_messages.each do |message|
           %li= message
 
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :price_per_month
-    = f.text_field :price_per_month
-  .field
-    = f.label :number_of_rooms
-    = f.number_field :number_of_rooms
-  .field
-    = f.label :number_of_bathrooms
-    = f.text_field :number_of_bathrooms
-  .field
-    = f.label :size_in_square_meters
-    = f.text_field :size_in_square_meters
-  .field
-    = f.label :description
-    = f.text_area :description
-  .actions
-    = f.submit 'Save'
+  .form-group
+    = f.label :title, class: 'small'
+    = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :number_of_rooms, class: 'small'
+    = f.text_field :number_of_rooms, class: 'form-control'
+  .form-group
+    = f.label :number_of_bathrooms, class: 'small'
+    = f.text_field :number_of_bathrooms, class: 'form-control'
+  .form-group
+    = f.label :size_in_square_meters, class: 'small'
+    = f.text_field :size_in_square_meters, class: 'form-control'
+  .form-group
+    = f.label :description, class: 'small'
+    = f.text_area :description, class: 'form-control'
+  .form-group
+    = f.submit 'Save', class: 'btn btn-primary btn-block'

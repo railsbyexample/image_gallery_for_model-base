@@ -17,8 +17,6 @@ ActiveRecord::Schema.define(version: 20180210030130) do
 
   create_table "properties", force: :cascade do |t|
     t.string "title"
-    t.integer "price_per_month_cents", default: 0, null: false
-    t.string "price_per_month_currency", default: "USD", null: false
     t.integer "number_of_rooms"
     t.float "number_of_bathrooms"
     t.float "size_in_square_meters"

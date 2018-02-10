@@ -1,7 +1,8 @@
-%h1 Editing property
+%h6.text-muted Editing #{@property.title}
 
 = render 'form'
 
-= link_to 'Show', @property
-\|
-= link_to 'Back', properties_path
+.d-flex.justify-content-center
+  = link_to 'Show', @property
+  %span.text-muted.mx-2 #{'|'}
+  = link_to 'Back', properties_path

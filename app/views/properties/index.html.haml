@@ -4,7 +4,6 @@
   %thead
     %tr
       %th Title
-      %th Price per month
       %th Number of rooms
       %th Number of bathrooms
       %th Size in square meters
@@ -17,7 +16,6 @@
     - @properties.each do |property|
       %tr
         %td= property.title
-        %td= property.price_per_month
         %td= property.number_of_rooms
         %td= property.number_of_bathrooms
         %td= property.size_in_square_meters
