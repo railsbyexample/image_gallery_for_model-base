@@ -18,6 +18,8 @@ gem 'figaro'
 # Backend functionality
 # Authentication
 gem 'devise'
+# Money attributes in models
+gem 'money-rails', '~>1'
 
 # Frontend functionality
 # Use jquery for bootstrap components
