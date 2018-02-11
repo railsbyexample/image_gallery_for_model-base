@@ -5,6 +5,16 @@
     = f.label :title, class: 'small'
     = f.text_field :title, class: 'form-control'
 
+  .form-group{ 'data-controller' => 'GeoLocation' }
+    %label.small Location
+    %input.form-control{ 'data-target' => 'GeoLocation.autocomplete' }
+    = fields_for :geo_location, @property.geo_location do |geo_location_form|
+      = geo_location_form.hidden_field :place_id, { 'data-target' => 'GeoLocation.placeId' }
+      = geo_location_form.hidden_field :label, { 'data-target' => 'GeoLocation.label' }
+      = geo_location_form.hidden_field :latitude, { 'data-target' => 'GeoLocation.latitude' }
+      = geo_location_form.hidden_field :longitude, { 'data-target' => 'GeoLocation.longitude' }
+      = geo_location_form.hidden_field :address_components, { 'data-target' => 'GeoLocation.addressComponents' }
+
   .form-group
     = f.label :price_per_month, class: 'small'
     .input-group
