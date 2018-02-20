@@ -4,6 +4,10 @@ FactoryBot.define do
     sequence(:place_id, &:to_s)
     latitude 1.5
     longitude 1.5
-    address_components '[{ "name": "New York" }]'
+    address_components([{
+      long_name: 'New York, New York',
+      short_name: 'New York, NY',
+      types: ['city', 'urban_region']
+    }])
   end
 end

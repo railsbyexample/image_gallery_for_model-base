@@ -84,6 +84,36 @@ RSpec.describe PropertiesController, type: :controller do
         expect(response).to be_success
       end
     end
+
+    context 'with a valid nested geo_location', :focus do
+      let(:attributes_with_valid_geo_location) do
+        attributes_for(:property)
+          .merge(geo_location_attributes: attributes_for(:geo_location))
+      end
+
+      it 'redirects to the created property' do
+        post :create, params: { property: attributes_with_valid_geo_location }
+        expect(response).to redirect_to(Property.last)
+      end
+
+      it 'adds an associated geo_location to the property' do
+        post :create, params: { property: attributes_with_valid_geo_location }
+
+        geo_location = assigns(:property).geo_location
+        expect(geo_location.persisted?).to be(true)
+      end
+    end
+
+    context 'with an invalid nested geo_location' do
+      let(:attributes_with_invalid_geo_location) do
+        attributes_for(:property)
+          .merge(
+            geo_location_attributes: attributes_for(
+              :geo_location, place_id: nil
+            )
+          )
+      end
+    end
   end
 
   describe 'PUT #update' do
@@ -97,7 +127,8 @@ RSpec.describe PropertiesController, type: :controller do
       end
 
       it 'redirects to the property' do
-        put :update, params: { id: property.to_param, property: valid_attributes }
+        put :update,
+            params: { id: property.to_param, property: valid_attributes }
         expect(response).to redirect_to(property)
       end
     end
@@ -105,7 +136,8 @@ RSpec.describe PropertiesController, type: :controller do
     context 'with invalid params' do
       it 'returns a success response (i.e. to display the `edit` template)' do
         property = Property.create! valid_attributes
-        put :update, params: { id: property.to_param, property: invalid_attributes }
+        put :update,
+            params: { id: property.to_param, property: invalid_attributes }
         expect(response).to be_success
       end
     end
@@ -125,5 +157,4 @@ RSpec.describe PropertiesController, type: :controller do
       expect(response).to redirect_to(properties_url)
     end
   end
-
 end

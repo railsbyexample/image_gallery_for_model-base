@@ -72,7 +72,11 @@ class PropertiesController < ApplicationController
   def property_params
     params.require(:property).permit(
       :title, :price_per_month, :number_of_rooms, :number_of_bathrooms,
-      :size_in_square_meters, :description
+      :size_in_square_meters, :description,
+      geo_location_attributes: [
+        :place_id, :label, :latitude, :longitude,
+        address_components: [:long_name, :short_name, types: []]
+      ]
     )
   end
 end
