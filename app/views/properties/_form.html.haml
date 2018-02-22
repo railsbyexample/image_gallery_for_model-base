@@ -6,33 +6,28 @@
     = f.text_field :title, class: 'form-control'
 
   .form-group{ 'data-controller' => 'GeoLocation' }
-    %label.small Location
-    %input.form-control{ 'data-target' => 'GeoLocation.autocomplete' }
-    = fields_for :geo_location, @property.geo_location do |geo_location_form|
-      = geo_location_form.hidden_field :place_id, { 'data-target' => 'GeoLocation.placeId' }
-      = geo_location_form.hidden_field :label, { 'data-target' => 'GeoLocation.label' }
-      = geo_location_form.hidden_field :latitude, { 'data-target' => 'GeoLocation.latitude' }
-      = geo_location_form.hidden_field :longitude, { 'data-target' => 'GeoLocation.longitude' }
-      = geo_location_form.hidden_field :address_components, { 'data-target' => 'GeoLocation.addressComponents' }
+    = f.label :location, class: 'small'
+    = render 'shared/geo_location_input'
 
   .form-group
     = f.label :price_per_month, class: 'small'
-    .input-group
-      = f.text_field :price_per_month, class: 'form-control'
-      .input-group-append
-        %span.input-group-text USD
+    = render 'shared/price_input', form: f, attribute_name: :price_per_month
 
   .form-group
     = f.label :number_of_rooms, class: 'small'
     = f.text_field :number_of_rooms, class: 'form-control'
+
   .form-group
     = f.label :number_of_bathrooms, class: 'small'
     = f.text_field :number_of_bathrooms, class: 'form-control'
+
   .form-group
     = f.label :size_in_square_meters, class: 'small'
     = f.text_field :size_in_square_meters, class: 'form-control'
+
   .form-group
     = f.label :description, class: 'small'
     = f.text_area :description, class: 'form-control'
+
   .form-group
     = f.submit 'Save', class: 'btn btn-primary btn-block'

@@ -1,0 +1,7 @@
+%input.form-control{ name: 'location', 'data-target' => 'GeoLocation.autocomplete' }
+= fields_for :geo_location, @property.geo_location do |geo_location_form|
+  = geo_location_form.hidden_field :place_id, { 'data-target' => 'GeoLocation.placeId' }
+  = geo_location_form.hidden_field :label, { 'data-target' => 'GeoLocation.label' }
+  = geo_location_form.hidden_field :latitude, { 'data-target' => 'GeoLocation.latitude' }
+  = geo_location_form.hidden_field :longitude, { 'data-target' => 'GeoLocation.longitude' }
+  = geo_location_form.hidden_field :address_components, { 'data-target' => 'GeoLocation.addressComponents' }
