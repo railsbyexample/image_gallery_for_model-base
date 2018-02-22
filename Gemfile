@@ -50,6 +50,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Intercepting mail
   gem 'letter_opener'
+  # Code style
+  gem 'rubocop'
 
   # Unit testing
   # Use RSpec for testing
