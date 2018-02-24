@@ -4,6 +4,9 @@
   %b Title:
   = @property.title
 %p
+  %b Location:
+  = @property.geo_location.try(:label)
+%p
   %b Number of rooms:
   = @property.number_of_rooms
 %p

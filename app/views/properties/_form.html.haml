@@ -7,7 +7,7 @@
 
   .form-group{ 'data-controller' => 'GeoLocation' }
     = f.label :location, class: 'small'
-    = render 'shared/geo_location_input'
+    = render 'shared/geo_location_input', form: f, resource: @property
 
   .form-group
     = f.label :price_per_month, class: 'small'

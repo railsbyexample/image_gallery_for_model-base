@@ -51,7 +51,10 @@ group :development, :test do
   # Intercepting mail
   gem 'letter_opener'
   # Code style
-  gem 'rubocop'
+  # ruby linter
+  gem 'rubocop', require: false
+  # haml linter
+  gem 'haml-lint', require: false
 
   # Unit testing
   # Use RSpec for testing

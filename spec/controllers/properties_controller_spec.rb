@@ -46,7 +46,7 @@ RSpec.describe PropertiesController, type: :controller do
       expect(response).to be_success
     end
 
-    it 'renders the new template' do
+    it 'renders the `new` template' do
       get :new, params: {}
       expect(response).to render_template(:new)
     end
@@ -58,7 +58,7 @@ RSpec.describe PropertiesController, type: :controller do
       expect(response).to be_success
     end
 
-    it 'returns a success response' do
+    it 'renders the `edit` template' do
       get :edit, params: { id: property.to_param }
       expect(response).to render_template(:edit)
     end
@@ -85,7 +85,7 @@ RSpec.describe PropertiesController, type: :controller do
       end
     end
 
-    context 'with a valid nested geo_location', :focus do
+    context 'with a valid nested geo_location' do
       let(:attributes_with_valid_geo_location) do
         attributes_for(:property)
           .merge(geo_location_attributes: attributes_for(:geo_location))
@@ -107,11 +107,23 @@ RSpec.describe PropertiesController, type: :controller do
     context 'with an invalid nested geo_location' do
       let(:attributes_with_invalid_geo_location) do
         attributes_for(:property)
-          .merge(
-            geo_location_attributes: attributes_for(
-              :geo_location, place_id: nil
-            )
-          )
+          .merge(geo_location_attributes: attributes_for(:geo_location, place_id: nil))
+      end
+
+      it 'returns a success response (i.e. to display the `new` template)' do
+        post :create, params: { property: attributes_with_invalid_geo_location }
+        expect(response).to be_success
+      end
+
+      it 'sets geo_location errors' do
+        post :create, params: { property: attributes_with_invalid_geo_location }
+        expect(assigns(:property).geo_location.errors.empty?).to be(false)
+      end
+
+      it 'does not create a geo_location' do
+        expect do
+          post :create, params: { property: attributes_with_invalid_geo_location }
+        end.to change { GeoLocation.count }.by(0)
       end
     end
   end
@@ -139,6 +151,62 @@ RSpec.describe PropertiesController, type: :controller do
         put :update,
             params: { id: property.to_param, property: invalid_attributes }
         expect(response).to be_success
+      end
+    end
+
+    context 'with a valid nested geo_location' do
+      let(:property) { create :property }
+      let(:attributes_with_valid_geo_location) do
+        { geo_location_attributes: attributes_for(:geo_location) }
+      end
+      let(:attributes_with_invalid_geo_location) do
+        { geo_location_attributes: attributes_for(:geo_location, place_id: nil) }
+      end
+
+      it 'redirects to the property' do
+        put :update,
+            params: { id: property.to_param, property: attributes_with_valid_geo_location }
+        expect(response).to redirect_to(Property.last)
+      end
+
+      it 'adds an associated geo_location to the property' do
+        put :update,
+            params: { id: property.to_param, property: attributes_with_valid_geo_location }
+
+        geo_location = assigns(:property).geo_location
+        expect(geo_location.persisted?).to be(true)
+      end
+    end
+
+    context 'with an invalid nested geo_location' do
+      let(:attributes_with_invalid_geo_location) do
+        attributes_for(:property)
+          .merge(geo_location_attributes: attributes_for(:geo_location, place_id: nil))
+      end
+
+      it 'returns a success response (i.e. to display the `edit` template)' do
+        put :update,
+            params: { id: property.to_param, property: attributes_with_invalid_geo_location }
+        expect(response).to be_success
+      end
+
+      it 'renders the `edit` template' do
+        put :update,
+            params: { id: property.to_param, property: attributes_with_invalid_geo_location }
+        expect(response).to render_template(:edit)
+      end
+
+      it 'sets geo_location errors' do
+        put :update,
+            params: { id: property.to_param, property: attributes_with_invalid_geo_location }
+        expect(assigns(:property).geo_location.errors.empty?).to be(false)
+      end
+
+      it 'does not create a geo_location' do
+        expect do
+          put :update,
+              params: { id: property.to_param, property: attributes_with_invalid_geo_location }
+        end.to change { GeoLocation.count }.by(0)
       end
     end
   end
