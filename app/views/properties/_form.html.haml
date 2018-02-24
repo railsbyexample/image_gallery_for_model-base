@@ -29,5 +29,9 @@
     = f.label :description, class: 'small'
     = f.text_area :description, class: 'form-control'
 
+  .form-group{ 'data-controller' => 'FeaturesInput'}
+    = f.label :features, class: 'small'
+    = render 'shared/features_input', form: f, resource: @property
+
   .form-group
     = f.submit 'Save', class: 'btn btn-primary btn-block'

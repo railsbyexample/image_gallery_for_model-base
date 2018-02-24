@@ -1,0 +1,11 @@
+= form.hidden_field :features
+%div{ 'data-target' => 'FeaturesInput.existingFeatures'}
+  - resource.features.each_with_index do |feature, index|
+    .input-group.mb-3
+      %input.form-control{ name: index, value: feature }
+      .input-group-append
+        %button.btn.btn-outline-secondary{type: 'button'} &times;
+.input-group.mb-3
+  %input.form-control{name: 'new', value: '', 'data-target' => 'FeaturesInput.newFeature' }
+  .input-group-append
+    %button.btn.btn-outline-primary{type: 'button', 'data-action' => 'click->FeaturesInput#addNewFeature'} &plus;
