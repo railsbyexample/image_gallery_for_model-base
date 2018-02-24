@@ -14,6 +14,12 @@ export default class extends Controller {
     this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteTarget);
     // Add listener to react to place change
     this.autocomplete.addListener('place_changed', () => { this.change() })
+    // Allow enter to select suggestion on Google Place autocomplete
+    google.maps.event.addDomListener(this.autocompleteTarget, 'keydown', event => {
+      if (event.keyCode == 13 && $('.pac-container:visible').length) {
+        event.preventDefault();
+      }
+    });
   }
 
   change() {
