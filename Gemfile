@@ -59,6 +59,8 @@ group :development, :test do
   # Unit testing
   # Use RSpec for testing
   gem 'rspec-rails', '~> 3.5'
+  # Use Capybara for feature testing
+  gem 'capybara'
   # Auto run RSpec tests
   gem 'guard-rspec', '~> 4.7'
   # Test controller assignments
