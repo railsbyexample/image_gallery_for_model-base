@@ -3,6 +3,12 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: %i[show edit update destroy]
 
+  MESSAGES = {
+    created: 'Property was successfully created.',
+    updated: 'Property was successfully updated.',
+    destroyed: 'Property was successfully destroyed.'
+  }.freeze
+
   # GET /properties
   # GET /properties.json
   def index
@@ -28,7 +34,7 @@ class PropertiesController < ApplicationController
 
     respond_to do |format|
       if @property.save
-        format.html { redirect_to @property, notice: 'Property was successfully created.' }
+        format.html { redirect_to @property, notice: MESSAGES[:created] }
         format.json { render :show, status: :created, location: @property }
       else
         format.html { render :new }
@@ -42,7 +48,7 @@ class PropertiesController < ApplicationController
   def update
     respond_to do |format|
       if @property.update(property_params)
-        format.html { redirect_to @property, notice: 'Property was successfully updated.' }
+        format.html { redirect_to @property, notice: MESSAGES[:updated] }
         format.json { render :show, status: :ok, location: @property }
       else
         format.html { render :edit }
@@ -56,7 +62,7 @@ class PropertiesController < ApplicationController
   def destroy
     @property.destroy
     respond_to do |format|
-      format.html { redirect_to properties_url, notice: 'Property was successfully destroyed.' }
+      format.html { redirect_to properties_url, notice: MESSAGES[:destroyed] }
       format.json { head :no_content }
     end
   end
@@ -72,7 +78,8 @@ class PropertiesController < ApplicationController
   def property_params
     params.require(:property).permit(
       :title, :price_per_month, :number_of_rooms, :number_of_bathrooms,
-      :size_in_square_meters, :description
+      :size_in_square_meters, :description,
+      geo_location_attributes: %i[place_id label latitude longitude address_components]
     )
   end
 end

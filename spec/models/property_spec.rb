@@ -23,6 +23,11 @@ RSpec.describe Property, type: :model do
         expect(property).to be_valid
       end
 
+      it 'is valid if blank' do
+        property = build :property, number_of_bathrooms: ''
+        expect(property).to be_valid
+      end
+
       it 'is invalid if not divisible by .5' do
         property = build :property, number_of_bathrooms: '3.7'
         expect(property).to be_invalid

@@ -50,10 +50,17 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Intercepting mail
   gem 'letter_opener'
+  # Code style
+  # ruby linter
+  gem 'rubocop', require: false
+  # haml linter
+  gem 'haml-lint', require: false
 
   # Unit testing
   # Use RSpec for testing
   gem 'rspec-rails', '~> 3.5'
+  # Use Capybara for feature testing
+  gem 'capybara'
   # Auto run RSpec tests
   gem 'guard-rspec', '~> 4.7'
   # Test controller assignments
