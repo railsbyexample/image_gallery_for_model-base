@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20180224193246) do
     t.integer "price_per_month_cents"
     t.string "price_per_month_currency", default: "USD", null: false
     t.bigint "geo_location_id"
-    t.json "features", default: [], null: false
+    t.json "features", default: [], array: true
     t.index ["geo_location_id"], name: "index_properties_on_geo_location_id"
     t.index ["title"], name: "index_properties_on_title"
   end

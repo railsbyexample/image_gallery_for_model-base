@@ -14,6 +14,7 @@ class GeoLocation < ApplicationRecord
   # Check if the location is already stored and load it to prevent duplicate place_ids
   before_validation :load_existing
   # Parse address_components if given as string
+  # [TODO] do this automatically
   before_validation :parse_address_components_json
 
   private

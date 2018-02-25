@@ -1,11 +1,18 @@
-= form.hidden_field :features
+= form.hidden_field :features, data: {target: 'FeaturesInput.featuresInput'}
 %div{ 'data-target' => 'FeaturesInput.existingFeatures'}
   - resource.features.each_with_index do |feature, index|
-    .input-group.mb-3
-      %input.form-control{ name: index, value: feature }
+    .input-group.mb-3{ id: "feature#{index}" }
+      %input.form-control{value: feature, autocomplete: false, 'data-action' => 'keyup->FeaturesInput#updateList'}
       .input-group-append
-        %button.btn.btn-outline-secondary{type: 'button'} &times;
+        %button.btn.btn-outline-secondary{type: 'button', 'data-target' => "feature#{index}", 'data-action' => 'click->FeaturesInput#removeExistingFeature'} &times;
+
 .input-group.mb-3
-  %input.form-control{name: 'new', value: '', 'data-target' => 'FeaturesInput.newFeature' }
+  %input.form-control{value: '', autocomplete: false, 'data-target' => 'FeaturesInput.newFeature', 'data-action' => 'keydown->FeaturesInput#addIfEnter' }
   .input-group-append
-    %button.btn.btn-outline-primary{type: 'button', 'data-action' => 'click->FeaturesInput#addNewFeature'} &plus;
+    %button.btn.btn-outline-primary{type: 'button', 'data-action' => 'click->FeaturesInput#addNewFeature keydown->FeaturesInput#addIfEnter'} &plus;
+
+%template#featureTemplate
+  .input-group.mb-3
+    %input.form-control
+    .input-group-append
+      %button.btn.btn-outline-secondary{type: 'button', 'data-action' => 'click->FeaturesInput#removeExistingFeature'} &times;
