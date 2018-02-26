@@ -1,6 +1,7 @@
-= form.fields_for :geo_location_attributes, resource.geo_location do |geo_location_form|
-  = geo_location_form.text_field :label, class: 'form-control', data: { target: 'GeoLocation.autocomplete'}
-  = geo_location_form.hidden_field :place_id, data: { target: 'GeoLocation.placeId' }
-  = geo_location_form.hidden_field :latitude, data: { target: 'GeoLocation.latitude' }
-  = geo_location_form.hidden_field :longitude, data: { target: 'GeoLocation.longitude' }
-  = geo_location_form.hidden_field :address_components, data: { target: 'GeoLocation.addressComponents' }
+%div{ 'data-controller' => 'GeoLocationInput' }
+  = form.fields_for :geo_location_attributes, resource.geo_location do |geo_location_form|
+    = geo_location_form.text_field :label, class: 'form-control', data: { target: 'GeoLocationInput.autocomplete'}
+    = geo_location_form.hidden_field :place_id, data: { target: 'GeoLocationInput.placeId' }
+    = geo_location_form.hidden_field :latitude, data: { target: 'GeoLocationInput.latitude' }
+    = geo_location_form.hidden_field :longitude, data: { target: 'GeoLocationInput.longitude' }
+    = geo_location_form.hidden_field :address_components, data: { target: 'GeoLocationInput.addressComponents' }
