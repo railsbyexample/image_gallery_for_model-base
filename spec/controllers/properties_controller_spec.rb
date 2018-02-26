@@ -126,6 +126,27 @@ RSpec.describe PropertiesController, type: :controller do
         end.to change { GeoLocation.count }.by(0)
       end
     end
+
+    context 'with valid features param' do
+      let(:features_array) { %w[hello world] }
+      # [TODO] Hack on json column behavior
+      let(:features_param) { '["hello","world",""]' }
+
+      let(:attributes_with_valid_features) do
+        attributes_for(:property)
+          .merge(features: features_param)
+      end
+
+      it 'redirects to the created property' do
+        post :create, params: { property: attributes_with_valid_features }
+        expect(response).to redirect_to(Property.last)
+      end
+
+      it 'stores the features in the property' do
+        post :create, params: { property: attributes_with_valid_features }
+        expect(assigns(:property).features).to eq(features_array)
+      end
+    end
   end
 
   describe 'PUT #update' do
@@ -207,6 +228,28 @@ RSpec.describe PropertiesController, type: :controller do
           put :update,
               params: { id: property.to_param, property: attributes_with_invalid_geo_location }
         end.to change { GeoLocation.count }.by(0)
+      end
+    end
+
+    context 'with valid features param' do
+      let(:features_array) { %w[hello world] }
+      # [TODO] Hack on json column behavior
+      let(:features_param) { '["hello","world",""]' }
+
+      let(:property) { create :property }
+      let(:attributes_with_valid_features) do
+        attributes_for(:property)
+          .merge(features: features_param)
+      end
+
+      it 'redirects to the created property' do
+        post :update, params: { id: property.to_param, property: attributes_with_valid_features }
+        expect(response).to redirect_to(Property.last)
+      end
+
+      it 'stores the features in the property' do
+        post :update, params: { id: property.to_param, property: attributes_with_valid_features }
+        expect(assigns(:property).features).to eq(features_array)
       end
     end
   end
