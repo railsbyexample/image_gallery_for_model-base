@@ -90,28 +90,17 @@ class PropertiesController < ApplicationController
   def transformed_params
     transformed_params = params.dup
 
-    transformed_params = transform_features(transformed_params)
-    transformed_params = transform_address_components(transformed_params)
+    transformed_params = transform__property_json(transformed_params, :features)
+    transformed_params = transform__property_json(transformed_params, :geo_location_attributes)
 
     transformed_params
   end
 
-  def transform_features(params)
+  def transform__property_json(params, attribute)
     transformed_params = params
 
-    if params.dig(:property, :features)
-      transformed_params[:property][:features] = JSON.parse(params[:property][:features])
-    end
-
-    transformed_params
-  end
-
-  def transform_address_components(params)
-    transformed_params = params
-
-    if params.dig(:property, :geo_location_attributes, :address_components)
-      transformed_params[:property][:geo_location_attributes][:address_components] =
-        JSON.parse(params[:property][:geo_location_attributes][:address_components])
+    if params.dig(:property, attribute)
+      transformed_params[:property][attribute] = JSON.parse(params[:property][attribute])
     end
 
     transformed_params

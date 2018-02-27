@@ -5,7 +5,7 @@ FactoryBot.define do
     latitude 1.5
     longitude 1.5
     address_components(
-      '[{ "long_name": "New York", "short_name": "New York", "types": ["locality", "political"] }]'
+      [{ long_name: 'New York', short_name: 'New York', types: %w[locality political] }]
     )
   end
 end
