@@ -76,10 +76,20 @@ class PropertiesController < ApplicationController
 
   # Never trust parameters from the scary internet
   def property_params
-    params.require(:property).permit(
+    transformed_params.require(:property).permit(
       :title, :price_per_month, :number_of_rooms, :number_of_bathrooms,
-      :size_in_square_meters, :description, :features,
+      :size_in_square_meters, :description, { features: [] },
       geo_location_attributes: %i[place_id label latitude longitude address_components]
     )
+  end
+
+  def transformed_params
+    transformed_params = params.dup
+
+    if params.dig(:property, :features)
+      transformed_params[:property][:features] = JSON.parse(params[:property][:features])
+    end
+
+    transformed_params
   end
 end

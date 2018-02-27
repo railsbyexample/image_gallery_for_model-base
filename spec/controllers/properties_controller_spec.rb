@@ -128,13 +128,11 @@ RSpec.describe PropertiesController, type: :controller do
     end
 
     context 'with valid features param' do
-      let(:features_array) { %w[hello world] }
-      # [TODO] Hack on json column behavior
-      let(:features_param) { '["hello","world",""]' }
+      let(:features) { '["hello", "world"]' }
 
       let(:attributes_with_valid_features) do
         attributes_for(:property)
-          .merge(features: features_param)
+          .merge(features: features)
       end
 
       it 'redirects to the created property' do
@@ -144,7 +142,7 @@ RSpec.describe PropertiesController, type: :controller do
 
       it 'stores the features in the property' do
         post :create, params: { property: attributes_with_valid_features }
-        expect(assigns(:property).features).to eq(features_array)
+        expect(assigns(:property).features).to eq(JSON.parse(features))
       end
     end
   end
@@ -232,14 +230,12 @@ RSpec.describe PropertiesController, type: :controller do
     end
 
     context 'with valid features param' do
-      let(:features_array) { %w[hello world] }
-      # [TODO] Hack on json column behavior
-      let(:features_param) { '["hello","world",""]' }
+      let(:features) { '["hello", "world"]' }
 
       let(:property) { create :property }
       let(:attributes_with_valid_features) do
         attributes_for(:property)
-          .merge(features: features_param)
+          .merge(features: features)
       end
 
       it 'redirects to the created property' do
@@ -249,7 +245,7 @@ RSpec.describe PropertiesController, type: :controller do
 
       it 'stores the features in the property' do
         post :update, params: { id: property.to_param, property: attributes_with_valid_features }
-        expect(assigns(:property).features).to eq(features_array)
+        expect(assigns(:property).features).to eq(JSON.parse(features))
       end
     end
   end
