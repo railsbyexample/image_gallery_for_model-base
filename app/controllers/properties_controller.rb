@@ -79,15 +79,39 @@ class PropertiesController < ApplicationController
     transformed_params.require(:property).permit(
       :title, :price_per_month, :number_of_rooms, :number_of_bathrooms,
       :size_in_square_meters, :description, { features: [] },
-      geo_location_attributes: %i[place_id label latitude longitude address_components]
+      geo_location_attributes: [
+        :place_id, :label, :latitude, :longitude,
+        address_components: [:long_name, :short_name, types: []]
+      ]
     )
   end
 
+  # [TODO] Move to a helper class
   def transformed_params
     transformed_params = params.dup
 
+    transformed_params = transform_features(transformed_params)
+    transformed_params = transform_address_components(transformed_params)
+
+    transformed_params
+  end
+
+  def transform_features(params)
+    transformed_params = params
+
     if params.dig(:property, :features)
       transformed_params[:property][:features] = JSON.parse(params[:property][:features])
+    end
+
+    transformed_params
+  end
+
+  def transform_address_components(params)
+    transformed_params = params
+
+    if params.dig(:property, :geo_location_attributes, :address_components)
+      transformed_params[:property][:geo_location_attributes][:address_components] =
+        JSON.parse(params[:property][:geo_location_attributes][:address_components])
     end
 
     transformed_params
