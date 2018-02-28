@@ -22,6 +22,8 @@ gem 'devise'
 gem 'responders'
 # Money attributes in models
 gem 'money-rails', '~>1'
+# Refile to handle file storage
+gem 'refile', require: 'refile/rails'
 
 # Frontend functionality
 # Use jquery for bootstrap components
