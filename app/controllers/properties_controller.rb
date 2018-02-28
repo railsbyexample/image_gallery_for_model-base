@@ -2,23 +2,14 @@
 # REST controller for the Property model
 class PropertiesController < ApplicationController
   include PropertyParams
-
   before_action :set_property, only: %i[show edit update destroy]
 
-  MESSAGES = {
-    created: 'Property was successfully created.',
-    updated: 'Property was successfully updated.',
-    destroyed: 'Property was successfully destroyed.'
-  }.freeze
-
   # GET /properties
-  # GET /properties.json
   def index
     @properties = Property.all
   end
 
   # GET /properties/1
-  # GET /properties/1.json
   def show; end
 
   # GET /properties/new
@@ -30,43 +21,21 @@ class PropertiesController < ApplicationController
   def edit; end
 
   # POST /properties
-  # POST /properties.json
   def create
-    @property = Property.new(property_params)
-
-    respond_to do |format|
-      if @property.save
-        format.html { redirect_to @property, notice: MESSAGES[:created] }
-        format.json { render :show, status: :created, location: @property }
-      else
-        format.html { render :new }
-        format.json { render json: @property.errors, status: :unprocessable_entity }
-      end
-    end
+    @property = Property.create(property_params)
+    respond_with(@property)
   end
 
   # PATCH/PUT /properties/1
-  # PATCH/PUT /properties/1.json
   def update
-    respond_to do |format|
-      if @property.update(property_params)
-        format.html { redirect_to @property, notice: MESSAGES[:updated] }
-        format.json { render :show, status: :ok, location: @property }
-      else
-        format.html { render :edit }
-        format.json { render json: @property.errors, status: :unprocessable_entity }
-      end
-    end
+    @property.update(property_params)
+    respond_with(@property)
   end
 
   # DELETE /properties/1
-  # DELETE /properties/1.json
   def destroy
     @property.destroy
-    respond_to do |format|
-      format.html { redirect_to properties_url, notice: MESSAGES[:destroyed] }
-      format.json { head :no_content }
-    end
+    respond_with(@property)
   end
 
   private
