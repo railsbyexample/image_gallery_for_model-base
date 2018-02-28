@@ -168,10 +168,23 @@ RSpec.describe PropertiesController, type: :controller do
 
     context 'with invalid params' do
       it 'returns a success response (i.e. to display the `edit` template)' do
-        property = Property.create! valid_attributes
+        property = create :property
+
         put :update,
             params: { id: property.to_param, property: invalid_attributes }
         expect(response).to be_success
+      end
+    end
+
+    context 'with a nil geo_location_id' do
+      it 'removes association to a geo_location' do
+        geo_location = create :geo_location
+        property = create :property, geo_location: geo_location
+        put :update,
+            params: { id: property.to_param, property: { geo_location_id: '' } }
+
+        property.reload
+        expect(property.geo_location).to be_nil
       end
     end
 
