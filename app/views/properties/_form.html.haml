@@ -1,5 +1,5 @@
 = form_for @property do |f|
-  = render partial: 'shared/errors', locals: { resource: @property }
+  = render 'shared/errors', resource: @property
 
   .form-group
     = f.label :title, class: 'small'
