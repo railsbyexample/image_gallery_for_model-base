@@ -1,5 +1,7 @@
 %div{ 'data-controller' => 'GeoLocationInput' }
   = hidden_field_tag "#{resource.class.name.underscore}[geo_location_attributes]",
-      resource.geo_location.to_json, data: { target: 'GeoLocationInput.geoLocationInput' }
-  = text_field_tag 'label',
-      resource.geo_location.try(:label), class: 'form-control', data: { target: 'GeoLocationInput.autocomplete'}
+      resource.geo_location.to_json,
+      data: { target: 'GeoLocationInput.geoLocationInput' }
+  = text_field_tag 'label', resource.geo_location.try(:label),
+      class: 'form-control',
+      data: { target: 'GeoLocationInput.autocomplete', action: 'change->GeoLocationInput#clearIfEmpty' }

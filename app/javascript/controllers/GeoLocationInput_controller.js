@@ -15,6 +15,8 @@ export default class extends Controller {
     google.maps.event.addDomListener(this.autocompleteTarget, 'keydown', this.allowSelectOnEnter);
   }
 
+
+
   updateModel = (place) => {
     let geoLocation = ''
 
@@ -29,6 +31,12 @@ export default class extends Controller {
     }
 
     this.geoLocationInputTarget.value = JSON.stringify(geoLocation)
+  }
+
+  clearIfEmpty = (event) => {
+    if (!event.target.value) {
+      this.updateModel({ place_id: null });
+    }
   }
 
   allowSelectOnEnter = event => {
