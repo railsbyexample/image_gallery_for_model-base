@@ -1,11 +1,11 @@
 = form_for @property do |f|
-  = render partial: 'shared/errors', locals: { resource: @property }
+  = render 'shared/errors', resource: @property
 
   .form-group
     = f.label :title, class: 'small'
     = f.text_field :title, class: 'form-control'
 
-  .form-group{ 'data-controller' => 'GeoLocation' }
+  .form-group
     = f.label :location, class: 'small'
     = render 'shared/geo_location_input', form: f, resource: @property
 
@@ -28,6 +28,10 @@
   .form-group
     = f.label :description, class: 'small'
     = f.text_area :description, class: 'form-control'
+
+  .form-group
+    = f.label :features, class: 'small'
+    = render 'shared/features_input', form: f, resource: @property
 
   .form-group
     = f.submit 'Save', class: 'btn btn-primary btn-block'

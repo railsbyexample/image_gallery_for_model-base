@@ -13,8 +13,6 @@ class GeoLocation < ApplicationRecord
 
   # Check if the location is already stored and load it to prevent duplicate place_ids
   before_validation :load_existing
-  # Parse address_components if given as string
-  before_validation :parse_address_components_json
 
   private
 
@@ -27,12 +25,5 @@ class GeoLocation < ApplicationRecord
 
     # Self assign existing record id
     (self.id = existing_geo_location.id) && reload
-  end
-
-  ##
-  # Parses the address_components to a hash if passed in as a string
-  def parse_address_components_json
-    return unless address_components.try(:is_a, String)
-    self.address_components = JSON.parse(address_components)
   end
 end

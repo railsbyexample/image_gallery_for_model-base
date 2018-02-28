@@ -87,8 +87,8 @@ RSpec.describe PropertiesController, type: :controller do
 
     context 'with a valid nested geo_location' do
       let(:attributes_with_valid_geo_location) do
-        attributes_for(:property)
-          .merge(geo_location_attributes: attributes_for(:geo_location))
+        geo_location_attributes = ActiveSupport::JSON.encode(attributes_for(:geo_location))
+        attributes_for(:property).merge(geo_location_attributes: geo_location_attributes)
       end
 
       it 'redirects to the created property' do
@@ -106,8 +106,10 @@ RSpec.describe PropertiesController, type: :controller do
 
     context 'with an invalid nested geo_location' do
       let(:attributes_with_invalid_geo_location) do
-        attributes_for(:property)
-          .merge(geo_location_attributes: attributes_for(:geo_location, place_id: nil))
+        geo_location_attributes =
+          ActiveSupport::JSON.encode(attributes_for(:geo_location, place_id: nil))
+
+        attributes_for(:property).merge(geo_location_attributes: geo_location_attributes)
       end
 
       it 'returns a success response (i.e. to display the `new` template)' do
@@ -124,6 +126,25 @@ RSpec.describe PropertiesController, type: :controller do
         expect do
           post :create, params: { property: attributes_with_invalid_geo_location }
         end.to change { GeoLocation.count }.by(0)
+      end
+    end
+
+    context 'with valid features param' do
+      let(:features) { %w[hello world] }
+
+      let(:attributes_with_valid_features) do
+        attributes_for(:property)
+          .merge(features: ActiveSupport::JSON.encode(features))
+      end
+
+      it 'redirects to the created property' do
+        post :create, params: { property: attributes_with_valid_features }
+        expect(response).to redirect_to(Property.last)
+      end
+
+      it 'stores the features in the property' do
+        post :create, params: { property: attributes_with_valid_features }
+        expect(assigns(:property).features).to eq(features)
       end
     end
   end
@@ -157,10 +178,8 @@ RSpec.describe PropertiesController, type: :controller do
     context 'with a valid nested geo_location' do
       let(:property) { create :property }
       let(:attributes_with_valid_geo_location) do
-        { geo_location_attributes: attributes_for(:geo_location) }
-      end
-      let(:attributes_with_invalid_geo_location) do
-        { geo_location_attributes: attributes_for(:geo_location, place_id: nil) }
+        geo_location_attributes = ActiveSupport::JSON.encode(attributes_for(:geo_location))
+        attributes_for(:property).merge(geo_location_attributes: geo_location_attributes)
       end
 
       it 'redirects to the property' do
@@ -180,8 +199,10 @@ RSpec.describe PropertiesController, type: :controller do
 
     context 'with an invalid nested geo_location' do
       let(:attributes_with_invalid_geo_location) do
-        attributes_for(:property)
-          .merge(geo_location_attributes: attributes_for(:geo_location, place_id: nil))
+        geo_location_attributes =
+          ActiveSupport::JSON.encode(attributes_for(:geo_location, place_id: nil))
+
+        attributes_for(:property).merge(geo_location_attributes: geo_location_attributes)
       end
 
       it 'returns a success response (i.e. to display the `edit` template)' do
@@ -207,6 +228,26 @@ RSpec.describe PropertiesController, type: :controller do
           put :update,
               params: { id: property.to_param, property: attributes_with_invalid_geo_location }
         end.to change { GeoLocation.count }.by(0)
+      end
+    end
+
+    context 'with valid features param' do
+      let(:features) { %w[hello world] }
+
+      let(:property) { create :property }
+      let(:attributes_with_valid_features) do
+        attributes_for(:property)
+          .merge(features: ActiveSupport::JSON.encode(features))
+      end
+
+      it 'redirects to the created property' do
+        post :update, params: { id: property.to_param, property: attributes_with_valid_features }
+        expect(response).to redirect_to(Property.last)
+      end
+
+      it 'stores the features in the property' do
+        post :update, params: { id: property.to_param, property: attributes_with_valid_features }
+        expect(assigns(:property).features).to eq(features)
       end
     end
   end
