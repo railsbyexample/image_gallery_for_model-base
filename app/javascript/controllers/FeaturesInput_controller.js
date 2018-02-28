@@ -15,8 +15,7 @@ export default class extends Controller {
     this.existingFeatures = [].slice.call(this.existingFeaturesTarget.getElementsByTagName('input'))
     .map(el => el.value);
 
-    // [TODO] Hack for rails json array bug (removes last element for some reason)
-    this.featuresInputTarget.value = JSON.stringify(this.existingFeatures.concat(['']));
+    this.featuresInputTarget.value = JSON.stringify(this.existingFeatures);
   }
 
   addIfEnter = (event) => {
