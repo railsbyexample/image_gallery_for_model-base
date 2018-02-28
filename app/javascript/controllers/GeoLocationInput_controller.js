@@ -3,7 +3,8 @@ import { Controller } from 'stimulus'
 export default class extends Controller {
   static targets = [
     'autocomplete',
-    'geoLocationInput'
+    'geoLocationInput',
+    'geoLocationIdInput'
   ];
 
   connect() {
@@ -15,10 +16,8 @@ export default class extends Controller {
     google.maps.event.addDomListener(this.autocompleteTarget, 'keydown', this.allowSelectOnEnter);
   }
 
-
-
   updateModel = (place) => {
-    let geoLocation = ''
+    let geoLocation = null
 
     if (place.place_id) {
       geoLocation = {
@@ -35,7 +34,8 @@ export default class extends Controller {
 
   clearIfEmpty = (event) => {
     if (!event.target.value) {
-      this.updateModel({ place_id: null });
+      this.geoLocationIdInputTarget.value = null;
+      this.geoLocationInputTarget.value = JSON.stringify(null);
     }
   }
 
