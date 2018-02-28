@@ -1,37 +1,41 @@
 = form_for @property do |f|
   = render 'shared/errors', resource: @property
 
-  .form-group
-    = f.label :title, class: 'small'
-    = f.text_field :title, class: 'form-control'
+  .row.mb-lg-4
+    .form-group.col-md-6
+      = f.label :title, class: 'small'
+      = f.text_field :title, class: 'form-control'
 
-  .form-group
-    = f.label :location, class: 'small'
-    = render 'shared/geo_location_input', form: f, resource: @property
+    .form-group.col-md-6
+      = f.label :location, class: 'small'
+      = render 'shared/geo_location_input', form: f, resource: @property
 
-  .form-group
-    = f.label :price_per_month, class: 'small'
-    = render 'shared/price_input', form: f, attribute_name: :price_per_month
+  .row.mb-lg-4
+    .form-group.col-12
+      = f.label :description, class: 'small'
+      = f.text_area :description, class: 'form-control', rows: 4
 
-  .form-group
-    = f.label :number_of_rooms, class: 'small'
-    = f.text_field :number_of_rooms, class: 'form-control'
+    .form-group.col-12
+      = f.label :features, class: 'small'
+      = render 'shared/features_input', form: f, resource: @property
 
-  .form-group
-    = f.label :number_of_bathrooms, class: 'small'
-    = f.text_field :number_of_bathrooms, class: 'form-control'
+  .row
+    .form-group.col-6
+      = f.label :price_per_month, class: 'small'
+      = render 'shared/price_input', form: f, attribute_name: :price_per_month
 
-  .form-group
-    = f.label :size_in_square_meters, class: 'small'
-    = f.text_field :size_in_square_meters, class: 'form-control'
+    .form-group.col-6
+      = f.label :size_in_square_meters, 'Size (sqm)', class: 'small'
+      = f.text_field :size_in_square_meters, class: 'form-control'
 
-  .form-group
-    = f.label :description, class: 'small'
-    = f.text_area :description, class: 'form-control'
+  .row.mb-5
+    .form-group.col-6
+      = f.label :number_of_rooms, 'Num beds', class: 'small'
+      = f.text_field :number_of_rooms, class: 'form-control'
 
-  .form-group
-    = f.label :features, class: 'small'
-    = render 'shared/features_input', form: f, resource: @property
+    .form-group.col-6
+      = f.label :number_of_bathrooms, 'Num baths', class: 'small'
+      = f.text_field :number_of_bathrooms, class: 'form-control'
 
   .form-group
     = f.submit 'Save', class: 'btn btn-primary btn-block'
