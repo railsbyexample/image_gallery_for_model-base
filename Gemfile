@@ -18,6 +18,8 @@ gem 'figaro'
 # Backend functionality
 # Authentication
 gem 'devise'
+# Responders to dry out controllers
+gem 'responders'
 # Money attributes in models
 gem 'money-rails', '~>1'
 
