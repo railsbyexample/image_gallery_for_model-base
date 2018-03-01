@@ -28,7 +28,7 @@ Metrics/AbcSize:
   Exclude:
     - db/migrate/**/*.rb
 
-Name/FileName:
+Naming/FileName:
   Exclude:
     - Guardfile
 

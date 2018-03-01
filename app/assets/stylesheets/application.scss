@@ -3,8 +3,17 @@
  */
 @import 'bootstrap';
 
+@import 'utilities/custom';
 @import 'utilities/sizing';
 
 body {
   background-color: $light;
+}
+
+.btn.btn-light {
+  color: $gray-600;
+}
+
+a.btn.btn-primary:visited {
+  color: $white;
 }

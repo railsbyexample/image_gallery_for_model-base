@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :image do
-    owner nil
-    image_id "MyString"
-    image_filename "MyString"
-    image_content_size "MyString"
-    image_content_type "MyString"
+    owner { create :property }
+    attached_file_id 'MyString'
+    attached_file_filename 'MyString'
+    attached_file_content_size 'MyString'
+    attached_file_content_type 'MyString'
   end
 end
