@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :properties do
-    resources :images
+    resources :images, only: %i[create destroy index], shallow: true
   end
 end

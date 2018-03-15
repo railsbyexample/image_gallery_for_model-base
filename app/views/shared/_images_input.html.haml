@@ -1,0 +1,12 @@
+%div{ 'data-controller' => 'ImagesInput' }
+  .row.mb-3{ 'data-target' => 'ImagesInput.imagesPreview' }
+  .custom-file
+    = form.attachment_field :attached_file,
+      class: 'custom-file-input',
+      data: { target: 'ImagesInput.imagesInput', action: 'change->ImagesInput#readUrl' }
+    = form.label :attached_file, 'Choose file',
+      class: 'btn btn-outline-primary custom-file-button'
+
+  %template{ 'data-target' => 'ImagesInput.imagePreview' }
+    .col-4.col-md-2
+      %img.img-fluid#image-preview

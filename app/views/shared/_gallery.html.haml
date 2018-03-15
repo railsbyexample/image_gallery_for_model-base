@@ -1,0 +1,13 @@
+.carousel.slide#gallery-controls{ 'data-ride' => 'carousel' }
+  .carousel-inner
+    - images.each_with_index do |image, index|
+      %div{ class: (index.zero? ? 'carousel-item active' : 'carousel-item') }
+        = image_tag attachment_url(image, :attached_file), class: 'd-block w-100'
+
+  %a.carousel-control-prev{ href: '#gallery-controls', role: 'button', 'data-slide' => 'prev' }
+    %span.carousel-control-prev-icon{ 'aria-hidden' => true }
+    %span.sr-only Previous
+
+  %a.carousel-control-next{ href: '#gallery-controls', role: 'button', 'data-slide' => 'next' }
+    %span.carousel-control-next-icon{ 'aria-hidden' => true }
+    %span.sr-only Next
