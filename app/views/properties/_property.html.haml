@@ -1,11 +1,14 @@
 .card.w-100
   .card-body.row.justify-content-md-between.align-items-md-center
     .col-12.col-md-auto.mb-3.mb-md-0.text-muted
-      %h5 #{property.title}
+      %h5= property.title
       - if property.geo_location.try(:label)
-        %h6.small #{property.geo_location.label}
+        %h6.small= property.geo_location.label
     .col-12.col-md-auto.d-flex.justify-content-end
       %div
-        = link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-light'
-        = link_to 'Add photos', new_property_image_path(property), class: 'btn btn-sm btn-outline-primary'
-        = link_to 'Edit', edit_property_path(property), class: 'btn btn-sm btn-outline-primary'
+        = link_to 'Destroy', property,
+          method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-light'
+        = link_to 'Add photos', property_images_path(property),
+          class: 'btn btn-sm btn-outline-primary'
+        = link_to 'Edit', edit_property_path(property),
+          class: 'btn btn-sm btn-outline-primary'
