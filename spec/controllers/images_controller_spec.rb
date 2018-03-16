@@ -57,7 +57,7 @@ RSpec.describe ImagesController, type: :controller do
       let(:params) do
         {
           property_id: property.id,
-          image: valid_attributes
+          image: invalid_attributes
         }
       end
 

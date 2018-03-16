@@ -1,7 +1,7 @@
 require 'rails_helper'
 require "refile/file_double"
 
-RSpec.describe Image, :focus, type: :model do
+RSpec.describe Image, type: :model do
   it 'has a valid factory' do
     image = create :image
     expect(image).to be_valid

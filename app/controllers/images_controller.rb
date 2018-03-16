@@ -10,6 +10,7 @@ class ImagesController < ApplicationController
   # POST /images
   def create
     @image = images.create(image_params)
+    debugger
     respond_with @image, location: images_path
   end
 

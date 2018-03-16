@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :image do
     owner { create :property }
-    attached_file_id 'MyString'
-    attached_file_filename 'MyString'
-    attached_file_content_size 'MyString'
-    attached_file_content_type 'MyString'
+
+    sequence(:attached_file) do |n|
+      Refile::FileDouble.new("test-#{n}", "test-#{n}.png", content_type: 'image/png')
+    end
   end
 end
