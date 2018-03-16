@@ -3,8 +3,13 @@ require 'rails_helper'
 RSpec.describe ImagesController, type: :controller do
   let(:property) { create :property }
   let(:images) { create_list :image, 3, owner: property }
-  let(:valid_attributes) { attributes_for :image, owner: property }
-  let(:invalid_attributes) { attributes_for :image, attached_file_filename: nil }
+
+  let(:invalid_attributes) { attributes_for :image, attached_file: nil }
+  let(:valid_attributes) do
+    attributes_for :image,
+                   attached_file: fixture_file_upload('files/attached_file.png', 'image/png'),
+                   owner: property
+  end
 
   let(:params) do
     { property_id: property.id }

@@ -9,9 +9,12 @@ class ImagesController < ApplicationController
 
   # POST /images
   def create
-    @image = images.create(image_params)
-    debugger
-    respond_with @image, location: images_path
+    @image = images.new(image_params)
+    if @image.save
+      respond_with @image, location: images_path
+    else
+      redirect_to images_path
+    end
   end
 
   # DELETE /images/1
