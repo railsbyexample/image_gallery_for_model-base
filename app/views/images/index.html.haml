@@ -1,10 +1,11 @@
 %h5.text-muted Gallery
 
-= render 'form'
-
 .row
-  - @image.owner.images.each do |image|
-    .col-4.col-md-2.mb-2
-      = image_tag attachment_url(image, :attached_file), class: 'img-fluid'
+  .col-12.col-md-4
+    = render 'form', image: @image, owner: @owner
 
-= link_to 'Back', @image.owner
+  .col-12.col-md-8
+    .row
+      - @image.owner.images.each do |image|
+        .col-4.col-md-4.mb-2
+          = image_tag attachment_url(image, :attached_file), class: 'img-fluid'

@@ -1,9 +1,9 @@
-= form_for [@owner, @image] do |f|
-  - if @image.errors.any?
+= form_for [owner, image] do |f|
+  - if image.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@image.errors.count, "error")} prohibited this image from being saved:"
+      %h2= "#{pluralize(image.errors.count, "error")} prohibited this image from being saved:"
       %ul
-        - @image.errors.full_messages.each do |message|
+        - image.errors.full_messages.each do |message|
           %li= message
 
   .form-group
@@ -11,3 +11,6 @@
 
   .form-group
     = f.submit 'Save', class: 'btn btn-block btn-primary'
+
+  .d-flex.justify-content-center
+    = link_to "Back to #{resource_name(owner)}", send(owner_index_path_method(owner))
