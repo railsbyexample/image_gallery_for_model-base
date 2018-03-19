@@ -81,7 +81,7 @@ RSpec.describe ImagesController, type: :controller do
       end.to change(Image, :count).by(-1)
     end
 
-    it 'redirects to the images list' do
+    it 'redirects to the images index' do
       image = create :image, owner: property
       delete :destroy, params: params.merge(id: image.id)
       expect(response).to redirect_to(property_images_path(property))

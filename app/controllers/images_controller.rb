@@ -11,7 +11,7 @@ class ImagesController < ApplicationController
   def create
     @image = images.new(image_params)
     if @image.save
-      respond_with @image, location: images_path
+      respond_with @image, location: images_path(@image.owner)
     else
       redirect_to images_path
     end
@@ -20,7 +20,7 @@ class ImagesController < ApplicationController
   # DELETE /images/1
   def destroy
     @image.destroy
-    respond_with @image, location: images_path
+    respond_with @image, location: images_path(@image.owner)
   end
 
   private
@@ -29,8 +29,8 @@ class ImagesController < ApplicationController
     @owner = Property.find(params[:property_id]) if params[:property_id]
   end
 
-  def images_path
-    send("#{@owner.class.name.underscore}_images_path".to_sym, @owner) if @owner.present?
+  def images_path(owner)
+    send("#{owner.class.name.underscore}_images_path".to_sym, owner) if owner.present?
   end
 
   def images
