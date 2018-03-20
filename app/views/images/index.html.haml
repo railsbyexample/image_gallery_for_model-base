@@ -10,5 +10,8 @@
         .col-6.mb-2
           .card
             = image_tag attachment_url(image, :attached_file), class: 'card-img-top'
-            .card-body.d-flex.justify-content-end
+            .card-body.d-flex.justify-content-between
+              .btn-group
+                = fa_icon 'chevron-up', class: 'btn btn-sm btn-light'
+                = fa_icon 'chevron-down', class: 'btn btn-sm btn-light'
               = link_to 'Delete', image, method: :delete, class: 'btn btn-sm btn-light'

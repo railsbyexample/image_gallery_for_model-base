@@ -35,6 +35,8 @@ gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 # Use bootstrap for styles
 gem 'bootstrap', '~> 4.0.0'
+# Use font-awesome icons
+gem 'font-awesome-rails'
 
 # Views
 # Use haml for views
@@ -78,9 +80,9 @@ end
 
 group :development do
   # Speed up development
-  # gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
-  # gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 
   # Debugging
   gem 'web-console', '>= 3.3.0'
