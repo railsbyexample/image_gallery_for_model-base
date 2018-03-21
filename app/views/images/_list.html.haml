@@ -1,0 +1,15 @@
+%div{ 'data-controller' => 'images--List' }
+  .row{ 'data-target' => 'images--List.list' }
+    -# = form_for owner do |f|
+    -#   = f.hidden_field :order, data: { target: 'images--List.orderInput' }
+    - images.each do |image|
+      .col-12.col-sm-6.col-md-6.mb-2{ id: "image#{image.id}" }
+        .card
+          = image_tag attachment_url(image, :attached_file), class: 'card-img-top'
+          .card-body.d-flex.justify-content-between
+            .btn-group
+              %button.btn.btn-sm.btn-light{ type: 'button', 'data-id' => image.id, 'data-action' => 'click->images--List#moveUp' }
+                = fa_icon 'chevron-up'
+              %button.btn.btn-sm.btn-light{ type: 'button', 'data-action' => 'click->images--List#moveUp'}
+                = fa_icon 'chevron-down'
+            = link_to 'Delete', image, method: :delete, class: 'btn btn-sm btn-light'

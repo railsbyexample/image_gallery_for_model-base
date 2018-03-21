@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    @image = images.new
+    @image = Image.new
   end
 
   # POST /images

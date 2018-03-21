@@ -12,5 +12,9 @@
   .form-group
     = f.submit 'Save', class: 'btn btn-block btn-primary'
 
-  .d-flex.justify-content-center
-    = link_to "Back to #{resource_name(owner)}", send(owner_index_path_method(owner))
+  .form-group
+    = link_to 'Preview', '#',
+      class: 'btn btn-block btn-light'
+  .form-group
+    = link_to "Back to #{resource_name(owner)}", send(owner_index_path_method(owner)),
+      class: 'btn btn-block btn-light'
