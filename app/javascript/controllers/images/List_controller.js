@@ -5,17 +5,23 @@ export default class extends Controller {
     'list'
   ];
 
-  // connect = () => {
-  //   debugger
-  // }
-
   moveUp = ({ target }) => {
-    const button = target.closest('button');
-    const element = this.listTarget.querySelector(`#image${button.dataset.id}`);
-    const previousElement = element.previousSibling;
+    target = (target.tagName == 'BUTTON') ? target : target.closest('button');
+    const element = this.listTarget.querySelector(`#image${target.dataset.id}`);
+    const previousElement = element.previousElementSibling;
 
     if (previousElement) {
       this.listTarget.insertBefore(element, previousElement);
     }
-  }
+  };
+
+  moveDown = ({ target }) => {
+    target = (target.tagName == 'BUTTON') ? target : target.closest('button');
+    const element = this.listTarget.querySelector(`#image${target.dataset.id}`);
+    const nextElement = element.nextElementSibling;
+
+    if (nextElement) {
+      this.listTarget.insertBefore(element, nextElement.nextElementSibling);
+    }
+  };
 }
