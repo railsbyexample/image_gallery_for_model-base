@@ -12,6 +12,6 @@ class Property < ApplicationRecord
   accepts_nested_attributes_for :geo_location
 
   # Images
-  has_many :images, as: :owner, dependent: :destroy
+  has_many :images, -> { order(position: :asc) }, as: :owner, dependent: :destroy
   accepts_nested_attributes_for :images
 end

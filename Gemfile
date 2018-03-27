@@ -25,6 +25,8 @@ gem 'money-rails', '~> 1'
 # Refile to handle file storage
 gem 'refile', github: 'refile/refile', require: 'refile/rails'
 gem 'refile-mini_magick', github: 'refile/refile-mini_magick'
+# acts_as_list to handle user sorting
+gem 'acts_as_list'
 
 # Frontend functionality
 # Use jquery for bootstrap components
