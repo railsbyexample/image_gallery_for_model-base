@@ -1,6 +1,8 @@
+##
+# REST controller for images
 class ImagesController < ApplicationController
   before_action :set_owner
-  before_action :set_image, only: %i[destroy]
+  before_action :set_image, only: %i[destroy update]
 
   # GET /images
   def index
@@ -11,10 +13,16 @@ class ImagesController < ApplicationController
   def create
     @image = images.new(image_params)
     if @image.save
-      respond_with @image, location: images_path(@image.owner)
+      respond_with @image, location: images_path(@owner)
     else
-      redirect_to images_path
+      redirect_to images_path(@owner), alert: @image.errors.full_messages.first
     end
+  end
+
+  # PUT /images/1
+  def update
+    @image.update(image_params)
+    respond_with @image
   end
 
   # DELETE /images/1
@@ -44,6 +52,6 @@ class ImagesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def image_params
-    params.require(:image).permit(:attached_file)
+    params.require(:image).permit(:attached_file, :position)
   end
 end

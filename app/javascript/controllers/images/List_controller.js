@@ -5,23 +5,46 @@ export default class extends Controller {
     'list'
   ];
 
+  updateImage = (id, newPosition) => {
+    const url = `/images/${id}.json`
+    const data = {
+      image: { position: newPosition }
+    };
+
+    return fetch(url, {
+      body: JSON.stringify(data),
+      headers: { 'content-type': 'application/json' },
+      method: 'PUT'
+    })
+  }
+
   moveUp = ({ target }) => {
     target = (target.tagName == 'BUTTON') ? target : target.closest('button');
-    const element = this.listTarget.querySelector(`#image${target.dataset.id}`);
-    const previousElement = element.previousElementSibling;
+    const { id, position } = target.dataset;
 
-    if (previousElement) {
-      this.listTarget.insertBefore(element, previousElement);
-    }
+    this.updateImage(id, position - 1)
+    .then(() => {
+      const element = this.listTarget.querySelector(`#image${target.dataset.id}`);
+      const previousElement = element.previousElementSibling;
+
+      if (previousElement) {
+        this.listTarget.insertBefore(element, previousElement);
+      }
+    });
   };
 
   moveDown = ({ target }) => {
     target = (target.tagName == 'BUTTON') ? target : target.closest('button');
-    const element = this.listTarget.querySelector(`#image${target.dataset.id}`);
-    const nextElement = element.nextElementSibling;
+    const { id, position } = target.dataset;
 
-    if (nextElement) {
-      this.listTarget.insertBefore(element, nextElement.nextElementSibling);
-    }
+    this.updateImage(id, position - 1)
+    .then(() => {
+      const element = this.listTarget.querySelector(`#image${target.dataset.id}`);
+      const nextElement = element.nextElementSibling;
+
+      if (nextElement) {
+        this.listTarget.insertBefore(element, nextElement.nextElementSibling);
+      }
+    });
   };
 }
