@@ -1,4 +1,6 @@
-%h5.text-muted Gallery
+.mb-4
+  = link_to "#{resource_name(@owner).singularize.humanize} #{@owner.id}",
+    send(owner_index_path_method(@owner)), class: 'text-muted h5'
 
 .row
   .col-12.col-md-4
