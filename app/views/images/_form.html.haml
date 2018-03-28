@@ -1,0 +1,7 @@
+= form_for [owner, image] do |f|
+
+  .form-group
+    = render 'shared/images_input', form: f
+
+  .form-group
+    = f.submit 'Save', class: 'btn btn-block btn-primary'

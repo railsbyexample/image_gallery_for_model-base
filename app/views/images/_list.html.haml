@@ -1,0 +1,16 @@
+%div{ 'data-controller' => 'images--List' }
+  = form_for owner, html: { id: 'owner-form', data: { target: 'images--List.orderForm' } } do |f|
+    = hidden_field_tag 'property[order]', '',
+      form: 'edit_property_1', data: { target: 'images--List.orderInput' }
+  .row{ 'data-target' => 'images--List.list' }
+    - images.each do |image|
+      .col-12.col-sm-6.col-md-6.mb-2{ id: "image#{image.id}", 'data-id' => image.id }
+        .card
+          = image_tag attachment_url(image, :attached_file), class: 'card-img-top'
+          .card-body.d-flex.justify-content-between
+            .btn-group
+              %button.btn.btn-sm.btn-light{ type: 'button', 'data-position' => image.position, 'data-id' => image.id, 'data-action' => 'click->images--List#moveUp' }
+                = fa_icon 'chevron-up'
+              %button.btn.btn-sm.btn-light{ type: 'button', 'data-position' => image.position, 'data-id' => image.id, 'data-action' => 'click->images--List#moveDown' }
+                = fa_icon 'chevron-down'
+            = link_to 'Delete', image, method: :delete, class: 'btn btn-sm btn-light'

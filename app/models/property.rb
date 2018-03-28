@@ -7,7 +7,11 @@ class Property < ApplicationRecord
 
   monetize :price_per_month_cents, allow_nil: true
 
-  # GeoLocation concern
+  # GeoLocation
   belongs_to :geo_location, optional: true
   accepts_nested_attributes_for :geo_location
+
+  # Images
+  has_many :images, -> { order(position: :asc) }, as: :owner, dependent: :destroy
+  accepts_nested_attributes_for :images
 end

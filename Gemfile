@@ -21,7 +21,12 @@ gem 'devise'
 # Responders to dry out controllers
 gem 'responders'
 # Money attributes in models
-gem 'money-rails', '~>1'
+gem 'money-rails', '~> 1'
+# Refile to handle file storage
+gem 'refile', github: 'refile/refile', require: 'refile/rails'
+gem 'refile-mini_magick', github: 'refile/refile-mini_magick'
+# acts_as_list to handle user sorting
+gem 'acts_as_list'
 
 # Frontend functionality
 # Use jquery for bootstrap components
@@ -32,6 +37,8 @@ gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 # Use bootstrap for styles
 gem 'bootstrap', '~> 4.0.0'
+# Use font-awesome icons
+gem 'font-awesome-rails'
 
 # Views
 # Use haml for views
@@ -75,7 +82,9 @@ end
 
 group :development do
   # Speed up development
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 
   # Debugging
   gem 'web-console', '>= 3.3.0'

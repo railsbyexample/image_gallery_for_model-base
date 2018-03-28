@@ -1,10 +1,28 @@
 /*
  *= require_self
  */
+@import 'font-awesome';
 @import 'bootstrap';
 
+@import 'utilities/custom';
 @import 'utilities/sizing';
 
 body {
   background-color: $light;
+}
+
+.btn.btn-light {
+  color: $gray-600;
+}
+
+a.btn.btn-primary:visited {
+  color: $white;
+}
+
+label.custom-file-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
 }

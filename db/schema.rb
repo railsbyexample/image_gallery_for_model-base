@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180224193246) do
+ActiveRecord::Schema.define(version: 20180326205149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,19 @@ ActiveRecord::Schema.define(version: 20180224193246) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["latitude", "longitude"], name: "index_geo_locations_on_latitude_and_longitude"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "owner_type"
+    t.bigint "owner_id"
+    t.string "attached_file_id"
+    t.string "attached_file_filename"
+    t.string "attached_file_content_size"
+    t.string "attached_file_content_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "position"
+    t.index ["owner_type", "owner_id"], name: "index_images_on_owner_type_and_owner_id"
   end
 
   create_table "properties", force: :cascade do |t|
