@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PropertiesController, type: :controller do
-  let(:user) { create :user }
+  user = FactoryBot.create :user
   let(:property) { create :property, owner: user }
   let(:properties) { create_list :property, 3 }
 
@@ -26,20 +26,31 @@ RSpec.describe PropertiesController, type: :controller do
       end
     end
 
-    context 'with a user specified as owner' do
-      it 'returns a success response' do
-        get :index, params: { user_id: user.to_param }
-        expect(response).to be_success
+    context 'with a user specified as owner', :focus do
+      context 'user is logged in' do
+        login_user(user)
+
+        it 'returns a success response' do
+          get :index, params: { user_id: user.to_param }
+          expect(response).to be_success
+        end
+
+        it 'sets the list of properties' do
+          get :index, params: { user_id: user.to_param }
+          expect(assigns(:properties)).to eq(user.properties)
+        end
+
+        it 'renders the index template' do
+          get :index, params: { user_id: user.to_param }
+          expect(response).to render_template(:owner_index)
+        end
       end
 
-      it 'sets the list of properties' do
-        get :index, params: { user_id: user.to_param }
-        expect(assigns(:properties)).to eq(user.properties)
-      end
-
-      it 'renders the index template' do
-        get :index, params: { user_id: user.to_param }
-        expect(response).to render_template(:owner_index)
+      context 'user is not logged in' do
+        it 'returns an unauthorized response' do
+          get :index, params: { user_id: user.to_param }
+          expect(response).to be_unauthorized
+        end
       end
     end
   end

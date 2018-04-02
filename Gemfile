@@ -18,6 +18,8 @@ gem 'figaro'
 # Backend functionality
 # Authentication
 gem 'devise'
+# Authorization
+gem 'cancancan', '~> 2.0'
 # Responders to dry out controllers
 gem 'responders'
 # Money attributes in models

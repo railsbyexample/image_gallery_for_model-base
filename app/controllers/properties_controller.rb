@@ -3,7 +3,7 @@
 class PropertiesController < ApplicationController
   include PropertyParams
   before_action :set_owner
-  before_action :set_property, only: %i[show edit update destroy]
+  load_and_authorize_resource :property, except: :create
 
   # GET /properties
   def index
