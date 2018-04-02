@@ -13,6 +13,9 @@ AllCops:
     - bin/*
     - Gemfile
 
+Rails:
+  Enabled: true
+
 Metrics/LineLength:
   Max: 100
 
