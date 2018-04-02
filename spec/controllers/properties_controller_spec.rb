@@ -1,25 +1,46 @@
 require 'rails_helper'
 
 RSpec.describe PropertiesController, type: :controller do
-  let(:property) { create :property }
+  let(:user) { create :user }
+  let(:property) { create :property, owner: user }
   let(:properties) { create_list :property, 3 }
-  let(:valid_attributes) { attributes_for :property }
-  let(:invalid_attributes) { attributes_for :property, title: nil }
+
+  let(:valid_attributes) { attributes_for :property, owner: user }
+  let(:invalid_attributes) { attributes_for :property, owner: user, title: nil }
 
   describe 'GET #index' do
-    it 'returns a success response' do
-      get :index, params: {}
-      expect(response).to be_success
+    context 'without specifying an owner' do
+      it 'returns a success response' do
+        get :index, params: {}
+        expect(response).to be_success
+      end
+
+      it 'sets the list of properties' do
+        get :index, params: {}
+        expect(assigns(:properties)).to eq(properties)
+      end
+
+      it 'renders the index template' do
+        get :index, params: {}
+        expect(response).to render_template(:index)
+      end
     end
 
-    it 'sets the list of properties' do
-      get :index, params: {}
-      expect(assigns(:properties)).to eq(properties)
-    end
+    context 'with a user specified as owner' do
+      it 'returns a success response' do
+        get :index, params: { user_id: user.to_param }
+        expect(response).to be_success
+      end
 
-    it 'renders the index template' do
-      get :index, params: {}
-      expect(response).to render_template(:index)
+      it 'sets the list of properties' do
+        get :index, params: { user_id: user.to_param }
+        expect(assigns(:properties)).to eq(user.properties)
+      end
+
+      it 'renders the index template' do
+        get :index, params: { user_id: user.to_param }
+        expect(response).to render_template(:owner_index)
+      end
     end
   end
 
@@ -42,12 +63,12 @@ RSpec.describe PropertiesController, type: :controller do
 
   describe 'GET #new' do
     it 'returns a success response' do
-      get :new, params: {}
+      get :new, params: { user_id: property.owner.to_param }
       expect(response).to be_success
     end
 
     it 'renders the `new` template' do
-      get :new, params: {}
+      get :new, params: { user_id: property.owner.to_param }
       expect(response).to render_template(:new)
     end
   end
@@ -68,19 +89,19 @@ RSpec.describe PropertiesController, type: :controller do
     context 'with valid params' do
       it 'creates a new Property' do
         expect do
-          post :create, params: { property: valid_attributes }
+          post :create, params: { user_id: user.to_param, property: valid_attributes }
         end.to change(Property, :count).by(1)
       end
 
       it 'redirects to the created property' do
-        post :create, params: { property: valid_attributes }
+        post :create, params: { user_id: user.to_param, property: valid_attributes }
         expect(response).to redirect_to(Property.last)
       end
     end
 
     context 'with invalid params' do
       it 'returns a success response (i.e. to display the `new` template)' do
-        post :create, params: { property: invalid_attributes }
+        post :create, params: { user_id: user.to_param, property: invalid_attributes }
         expect(response).to be_success
       end
     end
@@ -92,12 +113,12 @@ RSpec.describe PropertiesController, type: :controller do
       end
 
       it 'redirects to the created property' do
-        post :create, params: { property: attributes_with_valid_geo_location }
+        post :create, params: { user_id: user.to_param, property: attributes_with_valid_geo_location }
         expect(response).to redirect_to(Property.last)
       end
 
       it 'adds an associated geo_location to the property' do
-        post :create, params: { property: attributes_with_valid_geo_location }
+        post :create, params: { user_id: user.to_param, property: attributes_with_valid_geo_location }
 
         geo_location = assigns(:property).geo_location
         expect(geo_location.persisted?).to be(true)
@@ -113,18 +134,18 @@ RSpec.describe PropertiesController, type: :controller do
       end
 
       it 'returns a success response (i.e. to display the `new` template)' do
-        post :create, params: { property: attributes_with_invalid_geo_location }
+        post :create, params: { user_id: user.to_param, property: attributes_with_invalid_geo_location }
         expect(response).to be_success
       end
 
       it 'sets geo_location errors' do
-        post :create, params: { property: attributes_with_invalid_geo_location }
+        post :create, params: { user_id: user.to_param, property: attributes_with_invalid_geo_location }
         expect(assigns(:property).geo_location.errors.empty?).to be(false)
       end
 
       it 'does not create a geo_location' do
         expect do
-          post :create, params: { property: attributes_with_invalid_geo_location }
+          post :create, params: { user_id: user.to_param, property: attributes_with_invalid_geo_location }
         end.to change { GeoLocation.count }.by(0)
       end
     end
@@ -138,12 +159,12 @@ RSpec.describe PropertiesController, type: :controller do
       end
 
       it 'redirects to the created property' do
-        post :create, params: { property: attributes_with_valid_features }
+        post :create, params: { user_id: user.to_param, property: attributes_with_valid_features }
         expect(response).to redirect_to(Property.last)
       end
 
       it 'stores the features in the property' do
-        post :create, params: { property: attributes_with_valid_features }
+        post :create, params: { user_id: user.to_param, property: attributes_with_valid_features }
         expect(assigns(:property).features).to eq(features)
       end
     end

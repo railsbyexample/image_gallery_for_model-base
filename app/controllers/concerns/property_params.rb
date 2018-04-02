@@ -16,13 +16,13 @@ module PropertyParams
   def transformed_params
     transformed_params = params.dup
 
-    transformed_params = transform__property_json(transformed_params, :features)
-    transformed_params = transform__property_json(transformed_params, :geo_location_attributes)
+    transformed_params = transform_property_json(transformed_params, :features)
+    transformed_params = transform_property_json(transformed_params, :geo_location_attributes)
 
     transformed_params
   end
 
-  def transform__property_json(params, attribute)
+  def transform_property_json(params, attribute)
     transformed_params = params
 
     if params.dig(:property, attribute)

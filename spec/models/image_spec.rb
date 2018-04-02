@@ -28,7 +28,7 @@ RSpec.describe Image, type: :model do
     end
   end
 
-  describe 'ordering', :focus do
+  describe 'ordering' do
     let(:property) { create :property }
     let(:images) do
       5.times { create :image, owner: property }

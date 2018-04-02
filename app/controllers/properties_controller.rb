@@ -2,11 +2,13 @@
 # REST controller for the Property model
 class PropertiesController < ApplicationController
   include PropertyParams
+  before_action :set_owner
   before_action :set_property, only: %i[show edit update destroy]
 
   # GET /properties
   def index
-    @properties = Property.all
+    @properties = properties.all
+    render :owner_index if @owner
   end
 
   # GET /properties/1
@@ -22,7 +24,7 @@ class PropertiesController < ApplicationController
 
   # POST /properties
   def create
-    @property = Property.create(property_params)
+    @property = properties.create(property_params)
     respond_with(@property)
   end
 
@@ -40,7 +42,14 @@ class PropertiesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  def set_owner
+    @owner = User.find(params[:user_id]) if params[:user_id]
+  end
+
+  def properties
+    @owner.present? ? @owner.properties : Property
+  end
+
   def set_property
     @property = Property.find(params[:id])
   end
