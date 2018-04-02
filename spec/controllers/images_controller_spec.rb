@@ -28,7 +28,7 @@ RSpec.describe ImagesController, type: :controller do
 
     it 'sets an image for the form' do
       get :index, params: params
-      expect(assigns(:image).owner).to eq(property)
+      expect(assigns(:image)).to be_a(Image)
     end
 
     it 'renders the index template' do
