@@ -12,4 +12,11 @@ class ApplicationController < ActionController::Base
   def json_request?
     request.format.json?
   end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.json { head :forbidden, content_type: 'text/html' }
+      format.html { redirect_to root_url, notice: exception.message }
+    end
+  end
 end

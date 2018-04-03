@@ -6,6 +6,11 @@ RSpec.describe Property, type: :model do
     expect(property).to be_valid
   end
 
+  it 'has an owner' do
+    property = create :property
+    expect(property.owner).to be_a(User)
+  end
+
   describe 'validations' do
     it 'is invalid without a title' do
       property = build :property, title: ''

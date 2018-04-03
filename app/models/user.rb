@@ -12,4 +12,7 @@ class User < ApplicationRecord
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end
+
+  # Properties
+  has_many :properties, as: :owner, dependent: :destroy
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326205149) do
+ActiveRecord::Schema.define(version: 20180328171023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,10 @@ ActiveRecord::Schema.define(version: 20180326205149) do
     t.string "price_per_month_currency", default: "USD", null: false
     t.bigint "geo_location_id"
     t.json "features", default: [], array: true
+    t.string "owner_type"
+    t.bigint "owner_id"
     t.index ["geo_location_id"], name: "index_properties_on_geo_location_id"
+    t.index ["owner_type", "owner_id"], name: "index_properties_on_owner_type_and_owner_id"
     t.index ["title"], name: "index_properties_on_title"
   end
 

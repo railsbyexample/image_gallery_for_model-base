@@ -2,16 +2,21 @@
 # REST controller for images
 class ImagesController < ApplicationController
   before_action :set_owner
-  before_action :set_image, only: %i[destroy update]
+  load_and_authorize_resource :image, only: %i[destroy update]
 
   # GET /images
   def index
     @image = Image.new
+    @images = images.all
+
+    authorize! :update, (@images.any? ? @images.first : images.new)
   end
 
   # POST /images
   def create
     @image = images.new(image_params)
+
+    authorize! :create, @image
     if @image.save
       respond_with @image, location: images_path(@owner)
     else
@@ -45,12 +50,10 @@ class ImagesController < ApplicationController
     @owner.present? ? @owner.images : Image
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_image
     @image = Image.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def image_params
     params.require(:image).permit(:attached_file, :position)
   end
