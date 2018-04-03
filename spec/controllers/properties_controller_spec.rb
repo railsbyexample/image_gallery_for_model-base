@@ -5,8 +5,45 @@ RSpec.describe PropertiesController, type: :controller do
   let(:property) { create :property, owner: user }
   let(:properties) { create_list :property, 3 }
 
-  let(:valid_attributes) { attributes_for :property, owner: user }
-  let(:invalid_attributes) { attributes_for :property, owner: user, title: nil }
+  let(:valid_attributes) { attributes_for :property }
+  let(:invalid_attributes) { attributes_for :property, title: nil }
+
+  context 'when the owner is not logged in' do
+    describe 'GET #index (with specific user)' do
+      it 'redirects to root' do
+        get :index, params: { user_id: user.to_param }
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    describe 'GET #new' do
+      it 'redirects to root' do
+        get :new, params: { user_id: user.to_param }
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    describe 'GET #edit' do
+      it 'redirects to root' do
+        get :edit, params: { user_id: user.to_param, id: property.to_param }
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    describe 'PUT #update' do
+      it 'redirects to root' do
+        put :update, params: { id: property.to_param, property: valid_attributes }
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      it 'redirects to root' do
+        delete :destroy, params: { id: property.to_param }
+        expect(response).to redirect_to(root_url)
+      end
+    end
+  end
 
   describe 'GET #index' do
     context 'without specifying an owner' do
@@ -26,31 +63,22 @@ RSpec.describe PropertiesController, type: :controller do
       end
     end
 
-    context 'with a user specified as owner', :focus do
-      context 'user is logged in' do
-        login_user(user)
+    context 'with a user specified as owner' do
+      login_user(user)
 
-        it 'returns a success response' do
-          get :index, params: { user_id: user.to_param }
-          expect(response).to be_success
-        end
-
-        it 'sets the list of properties' do
-          get :index, params: { user_id: user.to_param }
-          expect(assigns(:properties)).to eq(user.properties)
-        end
-
-        it 'renders the index template' do
-          get :index, params: { user_id: user.to_param }
-          expect(response).to render_template(:owner_index)
-        end
+      it 'returns a success response' do
+        get :index, params: { user_id: user.to_param }
+        expect(response).to be_success
       end
 
-      context 'user is not logged in' do
-        it 'returns an unauthorized response' do
-          get :index, params: { user_id: user.to_param }
-          expect(response).to be_unauthorized
-        end
+      it 'sets the list of properties' do
+        get :index, params: { user_id: user.to_param }
+        expect(assigns(:properties)).to eq(user.properties)
+      end
+
+      it 'renders the index template' do
+        get :index, params: { user_id: user.to_param }
+        expect(response).to render_template(:owner_index)
       end
     end
   end
@@ -73,18 +101,22 @@ RSpec.describe PropertiesController, type: :controller do
   end
 
   describe 'GET #new' do
+    login_user(user)
+
     it 'returns a success response' do
-      get :new, params: { user_id: property.owner.to_param }
+      get :new, params: { user_id: user.to_param }
       expect(response).to be_success
     end
 
     it 'renders the `new` template' do
-      get :new, params: { user_id: property.owner.to_param }
+      get :new, params: { user_id: user.to_param }
       expect(response).to render_template(:new)
     end
   end
 
   describe 'GET #edit' do
+    login_user(user)
+
     it 'returns a success response' do
       get :edit, params: { id: property.to_param }
       expect(response).to be_success
@@ -97,6 +129,8 @@ RSpec.describe PropertiesController, type: :controller do
   end
 
   describe 'POST #create' do
+    login_user(user)
+
     context 'with valid params' do
       it 'creates a new Property' do
         expect do
@@ -124,12 +158,14 @@ RSpec.describe PropertiesController, type: :controller do
       end
 
       it 'redirects to the created property' do
-        post :create, params: { user_id: user.to_param, property: attributes_with_valid_geo_location }
+        post :create,
+             params: { user_id: user.to_param, property: attributes_with_valid_geo_location }
         expect(response).to redirect_to(Property.last)
       end
 
       it 'adds an associated geo_location to the property' do
-        post :create, params: { user_id: user.to_param, property: attributes_with_valid_geo_location }
+        post :create,
+             params: { user_id: user.to_param, property: attributes_with_valid_geo_location }
 
         geo_location = assigns(:property).geo_location
         expect(geo_location.persisted?).to be(true)
@@ -182,6 +218,8 @@ RSpec.describe PropertiesController, type: :controller do
   end
 
   describe 'PUT #update' do
+    login_user(user)
+
     context 'with valid params' do
       let(:new_attributes) { attributes_for :property, title: 'New Title' }
 
@@ -200,8 +238,6 @@ RSpec.describe PropertiesController, type: :controller do
 
     context 'with invalid params' do
       it 'returns a success response (i.e. to display the `edit` template)' do
-        property = create :property
-
         put :update,
             params: { id: property.to_param, property: invalid_attributes }
         expect(response).to be_success
@@ -211,7 +247,7 @@ RSpec.describe PropertiesController, type: :controller do
     context 'with a nil geo_location_id' do
       it 'removes association to a geo_location' do
         geo_location = create :geo_location
-        property = create :property, geo_location: geo_location
+        property = create :property, owner: user, geo_location: geo_location
         put :update,
             params: { id: property.to_param, property: { geo_location_id: '' } }
 
@@ -221,7 +257,7 @@ RSpec.describe PropertiesController, type: :controller do
     end
 
     context 'with a valid nested geo_location' do
-      let(:property) { create :property }
+      let(:property) { create :property, owner: user }
       let(:attributes_with_valid_geo_location) do
         geo_location_attributes = ActiveSupport::JSON.encode(attributes_for(:geo_location))
         attributes_for(:property).merge(geo_location_attributes: geo_location_attributes)
@@ -278,8 +314,6 @@ RSpec.describe PropertiesController, type: :controller do
 
     context 'with valid features param' do
       let(:features) { %w[hello world] }
-
-      let(:property) { create :property }
       let(:attributes_with_valid_features) do
         attributes_for(:property)
           .merge(features: ActiveSupport::JSON.encode(features))
@@ -298,15 +332,17 @@ RSpec.describe PropertiesController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
+    login_user(user)
+
     it 'destroys the requested property' do
-      property = create :property
+      property = create :property, owner: user
       expect do
         delete :destroy, params: { id: property.to_param }
       end.to change(Property, :count).by(-1)
     end
 
     it 'redirects to the properties list' do
-      property = create :property
+      property = create :property, owner: user
       delete :destroy, params: { id: property.to_param }
       expect(response).to redirect_to(properties_url)
     end

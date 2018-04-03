@@ -3,12 +3,15 @@
 class PropertiesController < ApplicationController
   include PropertyParams
   before_action :set_owner
-  load_and_authorize_resource :property, except: :create
+  load_and_authorize_resource :property, except: %i[create index]
 
   # GET /properties
   def index
     @properties = properties.all
-    render :owner_index if @owner
+    return if @owner.blank?
+
+    authorize! :update, (@properties.any? ? @properties.first : properties.new)
+    render :owner_index
   end
 
   # GET /properties/1
@@ -16,6 +19,7 @@ class PropertiesController < ApplicationController
 
   # GET /properties/new
   def new
+    authenticate_user!
     @property = Property.new
   end
 
@@ -25,6 +29,8 @@ class PropertiesController < ApplicationController
   # POST /properties
   def create
     @property = properties.create(property_params)
+
+    authorize! :create, @property
     respond_with(@property)
   end
 
