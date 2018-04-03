@@ -15,5 +15,7 @@ class Ability
     can :crud, User, id: user
     # A user can crud its own properties
     can :crud, Property, owner_type: user.class.name, owner_id: user.id
+    # A user can crud its own properties' images
+    can(:crud, Image) { |image| image.owner.owner == user }
   end
 end

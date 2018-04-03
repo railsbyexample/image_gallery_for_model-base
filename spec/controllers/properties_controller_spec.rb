@@ -30,6 +30,13 @@ RSpec.describe PropertiesController, type: :controller do
       end
     end
 
+    describe 'POST #create' do
+      it 'redirects to root' do
+        post :create, params: { user_id: user.to_param, property: valid_attributes }
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
     describe 'PUT #update' do
       it 'redirects to root' do
         put :update, params: { id: property.to_param, property: valid_attributes }

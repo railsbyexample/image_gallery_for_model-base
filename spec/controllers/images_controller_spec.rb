@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ImagesController, type: :controller do
-  let(:property) { create :property }
+  user = FactoryBot.create :user
+  let(:property) { create :property, owner: user }
   let(:images) { create_list :image, 3, owner: property }
 
   let(:invalid_attributes) { attributes_for :image, attached_file: nil }
@@ -15,7 +16,32 @@ RSpec.describe ImagesController, type: :controller do
     { property_id: property.id }
   end
 
+  context 'when the owner is not logged in' do
+    describe 'GET #index (with specific user)' do
+      it 'redirects to root' do
+        get :index, params: { property_id: property.to_param }
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    describe 'POST #create' do
+      it 'redirects to root' do
+        post :create, params: { property_id: property.to_param, image: valid_attributes }
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      it 'redirects to root' do
+        delete :destroy, params: { id: images.first.to_param }
+        expect(response).to redirect_to(root_url)
+      end
+    end
+  end
+
   describe 'GET #index' do
+    login_user(user)
+
     it 'returns a success response' do
       get :index, params: params
       expect(response).to be_success
@@ -38,6 +64,8 @@ RSpec.describe ImagesController, type: :controller do
   end
 
   describe 'POST #create' do
+    login_user(user)
+
     context 'with valid params' do
       let(:params) do
         {
@@ -74,6 +102,8 @@ RSpec.describe ImagesController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
+    login_user(user)
+
     it 'destroys the requested image' do
       image = create :image, owner: property
       expect do
