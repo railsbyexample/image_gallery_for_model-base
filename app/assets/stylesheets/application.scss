@@ -4,25 +4,12 @@
 @import 'font-awesome';
 @import 'bootstrap';
 
+// Utilities
+@import 'utilities/body';
 @import 'utilities/custom';
 @import 'utilities/sizing';
+@import 'utilities/links';
 
-body {
-  background-color: $light;
-}
-
-.btn.btn-light {
-  color: $gray-600;
-}
-
-a.btn.btn-primary:visited {
-  color: $white;
-}
-
-label.custom-file-button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 3;
-}
+// Components
+@import 'components/buttons';
+@import 'components/images';
