@@ -3,8 +3,8 @@
     .card-img-top
       .img-4x3-container
         = image_tag cover_url(property), class: 'img-4x3-content'
-    .card-body.row.justify-content-md-between.align-items-md-center
-      .col-12.col-md-auto.mb-3.mb-md-0.text-muted
+    .card-body.row
+      .col-12.col-md-auto.text-muted
         - if property.size_in_square_meters && property.price_per_month
           %h6 #{size(property)} - #{price(property)}
         %h5= property.title
