@@ -21,7 +21,7 @@ export default class extends Controller {
 
     if (place.place_id) {
       geoLocation = {
-        label: place.label,
+        label: place.formatted_address,
         place_id: place.place_id,
         latitude: place.geometry.location.lat(),
         longitude: place.geometry.location.lng(),
