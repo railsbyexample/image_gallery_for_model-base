@@ -1,26 +1,21 @@
-%p#notice= notice
-
 = render 'shared/gallery', images: @property.images
 
-%p
-  %b Title:
-  = @property.title
-%p
-  %b Location:
-  = @property.geo_location.try(:label)
-%p
-  %b Number of rooms:
-  = @property.number_of_rooms
-%p
-  %b Number of bathrooms:
-  = @property.number_of_bathrooms
-%p
-  %b Size in square meters:
-  = @property.size_in_square_meters
-%p
-  %b Description:
-  = @property.description
+.container.mt-3
+  .mb-3
+    %h1.text-muted= @property.title
+    %h5.text-muted= @property.geo_location.try(:label)
+  .mb-3
+    %h4.text-primary #{humanized_money_with_symbol @property.price_per_month}/mo
+  .mb-3
+    %ul.text-muted
+      %li #{@property.number_of_rooms} #{'bedroom'.pluralize @property.number_of_rooms}
+      %li #{@property.number_of_bathrooms} #{'bathroom'.pluralize @property.number_of_bathrooms}
+      %li #{@property.size_in_square_meters} m2
+      - @property.features.each do |feature|
+        %li= feature
+  .mb-3
+    %p.text-muted= @property.description
 
-= link_to 'Edit', edit_property_path(@property)
-\|
-= link_to 'Back', properties_path
+  = link_to 'Edit', edit_property_path(@property)
+  \|
+  = link_to 'Back', properties_path

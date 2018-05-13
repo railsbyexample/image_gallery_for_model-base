@@ -1,8 +1,9 @@
-%h6.text-muted.mb-3 #{@property.title}
+.container
+  %h6.text-muted.mb-3 Edit #{@property.title}
 
-= render 'form'
+  = render 'form'
 
-.d-flex.justify-content-center
-  = link_to 'Show', @property
-  %span.text-muted.mx-2 #{'|'}
-  = link_to 'Back', properties_path
+  .d-flex.justify-content-center
+    = link_to 'Show', @property
+    %span.text-muted.mx-2= '|'
+    = link_to 'Back', properties_path
