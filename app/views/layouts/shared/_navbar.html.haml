@@ -1,6 +1,8 @@
 %nav.navbar.navbar-light.navbar-expand-md
   .container
-    = link_to 'Renthru', home_path, class: 'navbar-brand text-muted'
+    .d-flex.align-items-center
+      = image_tag asset_url('logo.svg'), style: 'width: 1em;'
+      = link_to 'Renthru', home_path, class: 'navbar-brand text-muted ml-1'
 
     %button.navbar-toggler{ type: 'button', data: { toggle: 'collapse', target: '#menu' } }
       = fa_icon 'bars', class: 'text-muted'
