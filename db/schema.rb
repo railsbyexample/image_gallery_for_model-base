@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20180328171023) do
     t.string "title"
     t.integer "number_of_rooms"
     t.string "number_of_bathrooms"
-    t.float "size_in_square_meters"
+    t.float "size_in_square_feet"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

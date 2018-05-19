@@ -4,7 +4,7 @@ module PropertyParams
   def property_params
     transformed_params.require(:property).permit(
       :title, :price_per_month, :number_of_rooms, :number_of_bathrooms,
-      :size_in_square_meters, :description, { features: [] },
+      :size_in_square_feet, :description, { features: [] },
       :geo_location_id,
       geo_location_attributes: [
         :place_id, :label, :latitude, :longitude, :_destroy,

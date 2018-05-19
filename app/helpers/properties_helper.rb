@@ -10,7 +10,7 @@ module PropertiesHelper
   end
 
   def size(property)
-    "#{property.size_in_square_meters.to_i}m2"
+    "#{property.size_in_square_feet.to_i} sq. ft."
   end
 
   def price(property)

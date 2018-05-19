@@ -10,7 +10,7 @@
     %ul.text-muted
       %li #{@property.number_of_rooms} #{'bedroom'.pluralize @property.number_of_rooms}
       %li #{@property.number_of_bathrooms} #{'bathroom'.pluralize @property.number_of_bathrooms}
-      %li #{@property.size_in_square_meters} m2
+      %li #{@property.size_in_square_feet} sq. ft.
       - @property.features.each do |feature|
         %li= feature
   .mb-3
