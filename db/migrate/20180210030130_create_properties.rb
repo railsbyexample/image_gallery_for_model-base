@@ -7,7 +7,7 @@ class CreateProperties < ActiveRecord::Migration[5.1]
 
       t.integer :number_of_rooms
       t.string :number_of_bathrooms
-      t.float :size_in_square_meters
+      t.float :size_in_square_feet
 
       t.text :description
 
