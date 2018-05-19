@@ -33,6 +33,8 @@ gem 'acts_as_list'
 # Frontend functionality
 # Use jquery for bootstrap components
 gem 'jquery-rails'
+# Use bootstrap confirmation modals
+gem 'data-confirm-modal'
 
 # Styling
 # Use SCSS for stylesheets

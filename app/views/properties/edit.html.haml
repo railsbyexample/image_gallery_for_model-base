@@ -1,9 +1,6 @@
-.container
-  %h6.text-muted.mb-3 Edit #{@property.title}
+.mt-3.container
+  .mb-3
+    %h5.text-muted Edit #{@property.title}
+    = link_to 'My properties', user_properties_path(current_user)
 
   = render 'form'
-
-  .d-flex.justify-content-center
-    = link_to 'Show', @property
-    %span.text-muted.mx-2= '|'
-    = link_to 'Back', properties_path

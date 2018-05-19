@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'properties/new', type: :view do
+  user = FactoryBot.create :user
+  login_user(user)
+
   before(:each) do
     @property = assign(:property, build(:property))
   end

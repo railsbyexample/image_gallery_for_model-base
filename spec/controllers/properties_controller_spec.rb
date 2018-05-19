@@ -348,10 +348,10 @@ RSpec.describe PropertiesController, type: :controller do
       end.to change(Property, :count).by(-1)
     end
 
-    it 'redirects to the properties list' do
+    it "redirects to the owner's properties list", :focus do
       property = create :property, owner: user
       delete :destroy, params: { id: property.to_param }
-      expect(response).to redirect_to(properties_url)
+      expect(response).to redirect_to(user_properties_url(user))
     end
   end
 end

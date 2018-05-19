@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'properties/edit', type: :view do
+  user = FactoryBot.create :user
+  login_user(user)
+
   before(:each) do
-    @property = assign(:property, create(:property))
+    @property = assign(:property, create(:property, owner: user))
   end
 
   it 'renders the edit property form' do
