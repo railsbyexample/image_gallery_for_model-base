@@ -1,5 +1,6 @@
-.d-flex.justify-content-center.mb-3
-  .w-100.w-sm-50.w-lg-30
-    %h5.text-muted= title
-    = render partial: 'shared/errors', locals: { resource: resource }
-    = yield
+.container.mt-5
+  .d-flex.justify-content-center.mb-3
+    .w-100.w-sm-50.w-lg-30
+      %h5.text-muted= title
+      = render partial: 'shared/errors', locals: { resource: resource }
+      = yield

@@ -7,9 +7,7 @@ class ImagesController < ApplicationController
   # GET /images
   def index
     @image = Image.new
-    @images = images.all
-
-    authorize! :update, (@images.any? ? @images.first : images.new)
+    authorize! :update, @owner
   end
 
   # POST /images

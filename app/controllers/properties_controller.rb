@@ -43,7 +43,7 @@ class PropertiesController < ApplicationController
   # DELETE /properties/1
   def destroy
     @property.destroy
-    respond_with(@property)
+    respond_with(@property, location: user_properties_url(current_user))
   end
 
   private

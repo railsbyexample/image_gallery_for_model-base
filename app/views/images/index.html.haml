@@ -1,10 +1,12 @@
-.mb-4
-  = link_to "#{resource_name(@owner).singularize.humanize} #{@owner.id}",
-    send(owner_index_path_method(@owner)), class: 'text-muted h5'
+.container.mt-3
+  .mb-4
+    .h5.text-muted #{@owner.title} images
+    = link_to 'My properties',
+      user_properties_path(@owner.owner)
 
-.row
-  .col-12.col-md-4
-    = render 'form', image: @image, owner: @owner
+  .row
+    .col-12.col-md-4
+      = render 'form', image: @image, owner: @owner
 
-  .col-12.col-md-8
-    = render 'list', images: @owner.images, owner: @owner
+    .col-12.col-md-8
+      = render 'list', images: @owner.images, owner: @owner

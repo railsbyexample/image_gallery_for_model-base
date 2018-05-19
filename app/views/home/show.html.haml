@@ -1,0 +1,7 @@
+.container
+  .my-5
+    .display-3.text-primary This is Renthru
+    .h1.text-muted.font-weight-light We help you manage your rental properties
+
+  - unless user_signed_in?
+    = link_to 'Sign up now!', new_user_registration_path, class: 'btn btn-outline-primary btn-lg'

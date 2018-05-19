@@ -1,5 +1,6 @@
-%h5.text-muted.mb-3 New property
+.mt-3.container
+  .mb-3
+    %h5.text-muted New property
+    = link_to 'My properties', user_properties_path(current_user)
 
-= render 'form'
-
-= link_to 'Go back', properties_path
+  = render 'form'
