@@ -1,11 +1,23 @@
-%nav.navbar.navbar-light.px-0
+%nav.navbar.navbar-light.navbar-expand-md
   .container
-    .h5.mb-0
-      = link_to 'Renthru', root_path, class: 'navbar-brand text-muted'
+    = link_to 'Renthru', home_path, class: 'navbar-brand text-muted'
 
-    - unless user_signed_in?
-      = link_to 'Log in / Sign up', new_user_session_path, class: 'btn btn-outline-primary ml-auto'
-    - else
-      .ml-auto
-        = link_to 'Prefs', edit_user_registration_path, class: 'btn btn-outline-primary mr-1'
-        = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary'
+    %button.navbar-toggler{ type: 'button', data: { toggle: 'collapse', target: '#menu' } }
+      = fa_icon 'bars', class: 'text-muted'
+
+    .collapse.navbar-collapse#menu
+      %ul.navbar-nav.ml-auto
+        .nav-item
+          = link_to 'All properties', properties_path, class: 'nav-link'
+        - if user_signed_in?
+          .nav-item
+            = link_to 'My properties', user_properties_path(current_user), class: 'nav-link'
+          .nav-item
+            = link_to 'My account', edit_user_registration_path, class: 'nav-link'
+          .nav-item
+            = link_to 'Log out', destroy_user_session_path,
+                method: :delete, class: 'btn btn-sm btn-outline-primary'
+        - else
+          .nav-item.d-flex.align-items-center.ml-md-3.mt-3.mt-md-0
+            = link_to 'Log in / Sign up', new_user_session_path,
+                class: 'btn btn-sm btn-outline-primary'

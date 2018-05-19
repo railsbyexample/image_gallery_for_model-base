@@ -40,7 +40,7 @@ gem 'data-confirm-modal'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use bootstrap for styles
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.1.1'
 # Use font-awesome icons
 gem 'font-awesome-rails'
 
