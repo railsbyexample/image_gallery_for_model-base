@@ -1,24 +1,3 @@
-# README
+# Renthru
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This is a demo Project I used to try out Rails 5 and StimmulusJS, it's something I would love to improve and launch as a little product eventually. I'm thinking of it as a very simple way for real estate agents to keep track of interested tenants, and to manage viewing appointments. 
